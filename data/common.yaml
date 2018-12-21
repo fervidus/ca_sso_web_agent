@@ -1,1 +1,5 @@
 ---
+
+ca_sso_web_agent::install_dir: '/app/CA/webagent'
+ca_sso_web_agent::properties_file: 'ca-wa-installer.properties'
+ca_sso_web_agent::temp_location: '/tmp/ca_sso_web_agent_install'
