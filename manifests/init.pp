@@ -7,6 +7,7 @@
 class ca_sso_web_agent (
   # @TODO: The install_dir path is hardcoded in the fact that grabs the version. Need to dynamically grab the path in the fact...
   String $install_dir,
+  Array  $prereq_packages,
   String $properties_file,
   String $temp_location,
   String $version,
@@ -16,13 +17,12 @@ class ca_sso_web_agent (
 
   if $version != $installed_version {
     #notify { "VERSION MISMATCH!!! ---> CA SSO Web Agent version specified is ${version} and installed version is ${installed_version}": }
-    notify { "VERSION MISMATCH!!!": }
-
+    contain ca_sso_web_agent::preinstall
     contain ca_sso_web_agent::install
   }
-  else {
+  #else {
     #notify { "VERSION MATCH!!! --> version ${version} = installed version ${installed_version}": }
-    notify { "VERSION MATCH!!!": }
-  }
+    #notify { "VERSION MATCH!!!": }
+  #}
 
 }

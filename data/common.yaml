@@ -1,5 +1,21 @@
 ---
 
+# Note: The install_dir path is currently hardcoded in the ca_sso_web_agent_version fact.
+# If you decide to change the install_dir path, you will need to update the value in the ca_sso_web_agent_version fact until the fact is rewritten.
 ca_sso_web_agent::install_dir: '/app/CA/webagent'
+# The following packages are CA SSO Web Agent prerequisites.
+# https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/installing/install-agents/web-agent-for-apache/apache-based-server-preparations-for-linux
+ca_sso_web_agent::prereq_packages:
+  - 'binutils'
+  - 'gcc'
+  - 'keyutils-libs.i686'
+  - 'libidn.i686'
+  - 'libidn.so.11'
+  - 'libstdc++.i686'
+  - 'libXext.i686'
+  - 'libXrender.i686'
+  - 'libXtst.i686'
+  - 'ncurses-libs.i686'
+
 ca_sso_web_agent::properties_file: 'ca-wa-installer.properties'
 ca_sso_web_agent::temp_location: '/tmp/ca_sso_web_agent_install'

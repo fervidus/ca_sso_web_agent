@@ -15,7 +15,7 @@ class ca_sso_web_agent::install {
   $version         = $::ca_sso_web_agent::version
 
   file { $temp_location:
-    ensure => 'directory',
+    ensure => directory,
   }
 
   file { "${temp_location}/${properties_file}":
@@ -24,24 +24,25 @@ class ca_sso_web_agent::install {
   }
 
   case $version {
-    '12.52.109.2620': { $installation_binary = 'ca-wa-12.52-sp01-cr09-linux-x86-64.bin' }
+    '12.52.109.2620': { 
+      $installation_binary = 'ca-wa-12.52-sp01-cr09-linux-x86-64.bin'
+      $installation_zip    = 'ca-wa-12.52-sp01-cr09a-linux-x86-64.zip'
+    }
     default: { fail("Unsupported CA SSO Web Agent version ${version}") }
   }
 
   # Get installation binary
-  # @TODO: Upload binary to artifactory and update code below
-  archive { "${temp_location}/${installation_binary}":
-    ensure  => present,
-    source  => "/root/ca-wa-install/${installation_binary}",
-    extract => false,
-    creates => "${temp_location}/${installation_binary}",
-    cleanup => false,
+  # @TODO: Upload binary to artifactory and update code below to use archive::artifactory
+  archive { "${temp_location}/${installation_zip}":
+    ensure       => present,
+    source       => "/root/ca-wa-install/${installation_zip}",
+    extract      => true,
+    extract_path => $temp_location,
+    creates      => "${temp_location}/${installation_zip}",
+    cleanup      => false,
   }
 
-
-#  @TODO: Only install if not already installed (check for custom fact, etc.... )
   exec {'Install CA SSO Web Agent':
-    #command     => 'ca-wa-12.52-sp01-cr09-linux-x86-64.bin -f ca-wa-installer.properties -i silent',
     command     => "${installation_binary} -f ${properties_file} -i silent",
     path        => $temp_location,
     user        => root,
