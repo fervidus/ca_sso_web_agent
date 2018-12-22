@@ -19,7 +19,6 @@ class ca_sso_web_agent::install {
   }
 
   file { "${temp_location}/${properties_file}":
-    #content => "USER_INSTALL_DIR=${install_dir}\nUSER_SHORTCUTS=/root\n",
     content => "USER_INSTALL_DIR=${install_dir}\n",
   }
 
@@ -39,14 +38,19 @@ class ca_sso_web_agent::install {
     extract      => true,
     extract_path => $temp_location,
     creates      => "${temp_location}/${installation_zip}",
-    cleanup      => false,
+    cleanup      => true,
   }
 
   exec {'Install CA SSO Web Agent':
-    command     => "${installation_binary} -f ${properties_file} -i silent",
-    path        => $temp_location,
-    user        => root,
+    command => "${installation_binary} -f ${properties_file} -i silent",
+    path    => $temp_location,
+    user    => root,
 #    refreshonly => true,
   }
-  #@TODO Cleanup temp dir after install
+  exec {'Remove temp install files':
+    command => "rm -rf ${temp_location}",
+    path    => ['/bin', '/usr/bin',],
+    user    => 'root',
+  }
+
 }

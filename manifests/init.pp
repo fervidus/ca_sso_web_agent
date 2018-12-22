@@ -16,7 +16,6 @@ class ca_sso_web_agent (
   $installed_version = $::facts['ca_sso_web_agent_version']
 
   if $version != $installed_version {
-    #notify { "VERSION MISMATCH!!! ---> CA SSO Web Agent version specified is ${version} and installed version is ${installed_version}": }
     contain ca_sso_web_agent::preinstall
     contain ca_sso_web_agent::install
   }
