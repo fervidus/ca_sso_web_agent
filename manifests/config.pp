@@ -14,7 +14,7 @@ class ca_sso_web_agent::config {
   }
   file_line { 'etc-sysconfig-httpd-NETE_WA_PATH':
     path => '/etc/sysconfig/httpd',
-    line => 'NETE_WA_PATH=${NETE_WA_ROOT}/bin',
+    line => 'NETE_WA_PATH=${install_dir}/bin',
   }
   file_line { 'etc-sysconfig-httpd-CAPKIHOME':
     path => '/etc/sysconfig/httpd',
@@ -22,11 +22,11 @@ class ca_sso_web_agent::config {
   }
   file_line { 'etc-sysconfig-httpd-LD_LIBRARY_PATH':
     path => '/etc/sysconfig/httpd',
-    line => 'LD_LIBRARY_PATH=${NETE_WA_ROOT}/bin:${NETE_WA_ROOT}/bin/thirdparty:${LD_LIBRARY_PATH}',
+    line => 'LD_LIBRARY_PATH=${install_dir}/bin:${install_dir}/bin/thirdparty:${LD_LIBRARY_PATH}',
   }
   file_line { 'etc-sysconfig-httpd-PATH':
     path => '/etc/sysconfig/httpd',
-    line => 'PATH=${NETE_WA_PATH}:${PATH}',
+    line => 'PATH=${install_dir}:${PATH}',
   }
 
 }
