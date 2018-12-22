@@ -1,0 +1,25 @@
+# WebAgent.conf - configuration file for SiteMinder Web Agent
+
+LOCALE=<%= @locale %>
+
+#agentname="<AgentName>, <IPAddress>"
+HostConfigFile="<%= @host_config_file %>"
+AgentConfigObject="<%= @agent_config_object %>"
+EnableWebAgent="<%= @enable_web_agent %>"
+ServerPath="<%= @server_path %>"
+<%- if @enable_local_config -%>
+localconfigfile="<%= @local_config_file %>"
+<%- else -%>
+#localconfigfile="<%= @local_config_file %>"
+<%- end -%>
+LoadPlugin="<%= @load_plugin %>"
+#LoadPlugin="/app/CA/webagent/bin/libAffiliate10Plugin.so"
+#LoadPlugin="/app/CA/webagent/bin/libSAMLAffiliatePlugin.so"
+#LoadPlugin="/app/CA/webagent/bin/libeTSSOPlugin.so"
+#LoadPlugin="/app/CA/webagent/bin/libIntroscopePlugin.so"
+#LoadPlugin="/app/CA/webagent/bin/libSAMLDataPlugin.so"
+#LoadPlugin="/app/CA/webagent/bin/libOpenIDPlugin.so"
+#LoadPlugin="/app/CA/webagent/bin/libDisambiguatePlugin.so"
+#LoadPlugin="/app/CA/webagent/bin/libOAuthPlugin.so"
+#LoadPlugin="/app/CA/webagent/bin/libCertSessionLinkerPlugin.so"
+AgentIdFile="<%= @agent_id_file %>"

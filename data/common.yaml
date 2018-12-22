@@ -19,3 +19,14 @@ ca_sso_web_agent::prereq_packages:
 
 ca_sso_web_agent::properties_file: 'ca-wa-installer.properties'
 ca_sso_web_agent::temp_location: '/tmp/ca_sso_web_agent_install'
+
+# Parameters for WebAgent.conf template
+#ca_sso_web_agent::agent_config_object: ''
+ca_sso_web_agent::agent_id_file: '/etc/httpd/conf/AgentId.dat'
+ca_sso_web_agent::enable_local_config: false
+ca_sso_web_agent::enable_web_agent: 'YES'
+ca_sso_web_agent::host_config_file: '/app/CA/webagent/config/SmHost.conf'
+ca_sso_web_agent::load_plugin: '/app/CA/webagent/bin/libHttpPlugin.so'
+ca_sso_web_agent::local_config_file: '/etc/httpd/conf/LocalConfig.conf'
+ca_sso_web_agent::locale: 'en-US'
+ca_sso_web_agent::server_path: '/etc/httpd/conf'
