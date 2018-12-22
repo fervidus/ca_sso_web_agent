@@ -18,6 +18,7 @@ class ca_sso_web_agent (
   if $version != $installed_version {
     contain ca_sso_web_agent::preinstall
     contain ca_sso_web_agent::install
+    contain ca_sso_web_agent::config
   }
   #else {
     #notify { "VERSION MATCH!!! --> version ${version} = installed version ${installed_version}": }
