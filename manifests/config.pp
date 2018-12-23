@@ -22,11 +22,11 @@ class ca_sso_web_agent::config {
   }
   file_line { 'etc-sysconfig-httpd-LD_LIBRARY_PATH':
     path => '/etc/sysconfig/httpd',
-    line => "LD_LIBRARY_PATH=${install_dir}/bin:${install_dir}/bin/thirdparty:'${LD_LIBRARY_PATH}'",
+    line => "LD_LIBRARY_PATH=${install_dir}/bin:${install_dir}/bin/thirdparty:\${LD_LIBRARY_PATH}",
   }
   file_line { 'etc-sysconfig-httpd-PATH':
     path => '/etc/sysconfig/httpd',
-    line => "PATH=${install_dir}/bin:'${PATH}'",
+    line => "PATH=${install_dir}/bin:\${PATH}",
   }
 
 }
