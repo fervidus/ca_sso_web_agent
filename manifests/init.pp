@@ -119,6 +119,7 @@ class ca_sso_web_agent (
     }
   }
 
+  include ::apache
   create_resources('::apache::custom_config', $apache_conf)
 
 

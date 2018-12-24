@@ -5,7 +5,11 @@ LogFile="NO"
 <%- end -%>
 LogFileName="<%= @log_file %>"
 LogFileSize="<%= @log_file_size %>"
-TraceFile="<%= @enable_trace_file %>"
+<%- if @enable_trace_file -%>
+TraceFile="YES"
+<%- else -%>
+TraceFile="NO"
+<%- end -%>
 TraceFileName="<%= @trace_file %>"
 TraceFileSize="<%= @trace_file_size %>"
 TraceConfigFile="<%= @trace_config_file %>"

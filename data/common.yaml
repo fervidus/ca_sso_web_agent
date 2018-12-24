@@ -1,4 +1,7 @@
 ---
+# Required, otherwise you will receive the following in the apache logs: "Siteminder Web Agent: restart not supported."
+apache::service_restart: 'foo'
+
 ca_sso_web_agent::apache_conf:
   ca_sso_web_agent:                                                                                   
     content: |
@@ -33,7 +36,7 @@ ca_sso_web_agent::temp_location: '/tmp/ca_sso_web_agent_install'
 ca_sso_web_agent::enable_local_config: false
 ca_sso_web_agent::enable_web_agent: true
 ca_sso_web_agent::locale: 'en-US'
-ca_sso_web_agent::server_path: '/etc/httpd/conf'
+ca_sso_web_agent::server_path: '/etc/httpd'
 #
 # Parameters for LocalConfig.conf template
 ca_sso_web_agent::enable_log_file: true
