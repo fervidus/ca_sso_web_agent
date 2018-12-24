@@ -5,7 +5,7 @@
 # @example
 #   include ca_sso_web_agent
 class ca_sso_web_agent (
-  # @TODO: The install_dir path is hardcoded in the fact that grabs the version. Need to dynamically grab the path in the fact...
+  Hash $apache_conf,
   String $install_dir,
   Array  $policy_servers,
   Array  $prereq_packages,
@@ -64,6 +64,9 @@ class ca_sso_web_agent (
     ensure => link,
     target => "${install_dir}/bin/smreghost",
   }
+  file { "${host_config_file}":
+    owner => 'apache',
+  }
 
   # WebAgent.conf
   file { $web_agent_config_file:
@@ -116,6 +119,7 @@ class ca_sso_web_agent (
     }
   }
 
+  create_resources('::apache::custom_config', $apache_conf)
 
 
 }

@@ -1,4 +1,12 @@
 ---
+ca_sso_web_agent::apache_conf:
+  ca_sso_web_agent:                                                                                   
+    content: |
+      PassEnv CAPKIHOME
+      LoadModule sm_module "%{::ca_sso_web_agent_install_dir}/bin/libmod_sm24.so"
+      SmInitFile "%{::ca_sso_web_agent_install_dir}/config/WebAgent.conf"
+    priority: '35'
+    verify_config: false
 
 #ca_sso_web_agent::install_dir: '/app/CA/webagent'
 ca_sso_web_agent::install_dir: '/app/ca/webagent'
