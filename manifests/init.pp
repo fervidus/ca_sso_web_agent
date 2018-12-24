@@ -61,6 +61,11 @@ class ca_sso_web_agent (
     #notify { "VERSION MATCH!!!": }
   #}
 
+  file { '/usr/local/bin/smreghost':
+    ensure => link,
+    target => "${install_dir}/bin/smreghost",
+  }
+
   # WebAgent.conf
   file { $web_agent_config_file:
     ensure  => file,
