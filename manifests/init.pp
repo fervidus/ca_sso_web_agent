@@ -7,6 +7,7 @@
 class ca_sso_web_agent (
   # @TODO: The install_dir path is hardcoded in the fact that grabs the version. Need to dynamically grab the path in the fact...
   String $install_dir,
+  Array  $policy_servers,
   Array  $prereq_packages,
   String $properties_file,
   String $temp_location,
@@ -39,6 +40,7 @@ class ca_sso_web_agent (
   
 ) {
 
+  $configured_policy_servers   = $::facts['ca_sso_web_agent_policy_servers']
   $host_config_file            = "${install_dir}/config/SmHost.conf"
   $installed_version           = $::facts['ca_sso_web_agent_version']
   $load_plugin                 = "${install_dir}/bin/libHttpPlugin.so"
@@ -82,6 +84,32 @@ class ca_sso_web_agent (
 #    owner   => $settings_file_owner,                                                                                                   
 #    group   => $settings_file_group,
     content => template('ca_sso_web_agent/WebAgentTrace.conf.erb'),
+  }
+
+  $configured_policy_servers.each | String $configured_policy_server | {
+    if ! ( $configured_policy_server in $policy_servers ) {
+      # Configured policy server in SmHost.conf does not match desired policy server. Need to delete... 
+      #notify { "DELETE from SmHost.conf ==> No match for ${configured_policy_server} in ${policy_servers}": }
+      notify { "Deleting ${configured_policy_server} from SmHost.conf": }
+      file_line { "SmHost.conf-${configured_policy_server}":
+        ensure => absent,
+        path   => "${install_dir}/config/SmHost.conf",
+        line   => $configured_policy_server,
+      }
+    }
+  }
+
+  $policy_servers.each | String $policy_server | {
+    if ! ( $policy_server in $configured_policy_servers ) {
+      # Policy server is not present in SmHost.conf. Need to add... 
+      notify { "Adding ${policy_server} to ${install_dir}/config/SmHost.conf": }
+      file_line { "SmHost.conf-${policy_server}":
+        ensure => present,
+        after  => '#Add additional bootstrap policy servers here for fault tolerance.',
+        path   => "${install_dir}/config/SmHost.conf",
+        line   => $policy_server,
+      }
+    }
   }
 
 }
