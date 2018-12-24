@@ -1,0 +1,11 @@
+<%- if @enable_log_file -%>
+LogFile="YES"
+<%- else -%>
+LogFile="NO"
+<%- end -%>
+LogFileName="<%= @log_file %>"
+LogFileSize="<%= @log_file_size %>"
+TraceFile="<%= @enable_trace_file %>"
+TraceFileName="<%= @trace_file %>"
+TraceFileSize="<%= @trace_file_size %>"
+TraceConfigFile="<%= @trace_config_file %>"
