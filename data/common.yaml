@@ -1,8 +1,7 @@
 ---
 
-# Note: The install_dir path is currently hardcoded in the ca_sso_web_agent_version fact.
-# If you decide to change the install_dir path, you will need to update the value in the ca_sso_web_agent_version fact until the fact is rewritten.
-ca_sso_web_agent::install_dir: '/app/CA/webagent'
+#ca_sso_web_agent::install_dir: '/app/CA/webagent'
+ca_sso_web_agent::install_dir: '/app/ca/webagent'
 # The following packages are CA SSO Web Agent prerequisites.
 # https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/installing/install-agents/web-agent-for-apache/apache-based-server-preparations-for-linux
 ca_sso_web_agent::prereq_packages:
@@ -18,27 +17,20 @@ ca_sso_web_agent::prereq_packages:
   - 'ncurses-libs.i686'
 
 ca_sso_web_agent::properties_file: 'ca-wa-installer.properties'
+ca_sso_web_agent::registration_fips_mode: 'COMPAT'
 ca_sso_web_agent::temp_location: '/tmp/ca_sso_web_agent_install'
 
 # Parameters for WebAgent.conf template
 #ca_sso_web_agent::agent_config_object: ''
-#ca_sso_web_agent::agent_id_file: '/etc/httpd/conf/AgentId.dat'
 ca_sso_web_agent::enable_local_config: false
 ca_sso_web_agent::enable_web_agent: true
-#ca_sso_web_agent::host_config_file: '/app/CA/webagent/config/SmHost.conf'
-#ca_sso_web_agent::load_plugin: '/app/CA/webagent/bin/libHttpPlugin.so'
-#ca_sso_web_agent::local_config_file: '/app/CA/webagent/config/LocalConfig.conf'
 ca_sso_web_agent::locale: 'en-US'
 ca_sso_web_agent::server_path: '/etc/httpd/conf'
-#ca_sso_web_agent::web_agent_config_file: '/app/CA/webagent/config/WebAgent.conf'
 #
 # Parameters for LocalConfig.conf template
 ca_sso_web_agent::enable_log_file: true
 ca_sso_web_agent::enable_trace_file: true
-#ca_sso_web_agent::log_file: '/app/CA/webagent/log/WebAgent.log'
 ca_sso_web_agent::log_file_size: '100'
-#ca_sso_web_agent::trace_config_file: '/app/CA/webagent/config/WebAgentTrace.conf'
-#ca_sso_web_agent::trace_file: '/app/CA/webagent/log/WebAgentTrace.log'
 ca_sso_web_agent::trace_file_size: '100'
 
 # Parameters for WebAgentTrace.conf template

@@ -10,28 +10,26 @@ class ca_sso_web_agent (
   Array  $policy_servers,
   Array  $prereq_packages,
   String $properties_file,
+  Enum['COMPAT', 'ONLY'] $registration_fips_mode,
+  String $registration_host_config_object,
+  String $registration_hostname,
+  String $registration_password,
+  String $registration_policy_server_ip,
+  String $registration_username,
   String $temp_location,
   String $version,
 
   # Variables for WebAgent.conf template
   String $agent_config_object,
-  #String $agent_id_file,
   Boolean $enable_local_config,
   Boolean $enable_web_agent,
-  #String $host_config_file,
-  #String $load_plugin,
-  #String $local_config_file,
   String $locale,
   String $server_path,
-  #String $web_agent_config_file,
   #
   # Variables for LocalConfig.conf template
   Boolean $enable_log_file,
   Boolean $enable_trace_file,
-  #String $log_file,
   String $log_file_size,
-  #String $trace_config_file,
-  #String $trace_file,
   String $trace_file_size,
   #
   # Variables for WebAgentTrace.conf template
@@ -54,6 +52,7 @@ class ca_sso_web_agent (
   if $version != $installed_version {
     contain ca_sso_web_agent::preinstall
     contain ca_sso_web_agent::install
+    contain ca_sso_web_agent::register
     contain ca_sso_web_agent::config
   }
   #else {
@@ -91,19 +90,19 @@ class ca_sso_web_agent (
     content => template('ca_sso_web_agent/WebAgentTrace.conf.erb'),
   }
 
-  $configured_policy_servers.each | String $configured_policy_server | {
-    if ! ( $configured_policy_server in $policy_servers ) {
-      # Configured policy server in SmHost.conf does not match desired policy server. Need to delete... 
-      #notify { "DELETE from SmHost.conf ==> No match for ${configured_policy_server} in ${policy_servers}": }
-      notify { "Deleting ${configured_policy_server} from SmHost.conf": }
-      file_line { "SmHost.conf-${configured_policy_server}":
-        ensure => absent,
-        path   => "${install_dir}/config/SmHost.conf",
-        line   => $configured_policy_server,
+  if $configured_policy_servers {
+    $configured_policy_servers.each | String $configured_policy_server | {
+      if ! ( $configured_policy_server in $policy_servers ) {
+        # Configured policy server in SmHost.conf does not match desired policy server. Need to delete... 
+        notify { "Deleting ${configured_policy_server} from SmHost.conf": }
+        file_line { "SmHost.conf-${configured_policy_server}":
+          ensure => absent,
+          path   => "${install_dir}/config/SmHost.conf",
+          line   => $configured_policy_server,
+        }
       }
     }
   }
-
   $policy_servers.each | String $policy_server | {
     if ! ( $policy_server in $configured_policy_servers ) {
       # Policy server is not present in SmHost.conf. Need to add... 
@@ -116,5 +115,7 @@ class ca_sso_web_agent (
       }
     }
   }
+
+
 
 }

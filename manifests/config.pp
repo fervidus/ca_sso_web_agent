@@ -5,6 +5,8 @@
 # @example
 #   include ca_sso_web_agent::config
 class ca_sso_web_agent::config {
+
+#@TODO Remove old entries if $install_dir path changes
   
   $install_dir = $::ca_sso_web_agent::install_dir
 
