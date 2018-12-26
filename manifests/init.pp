@@ -38,89 +38,37 @@ class ca_sso_web_agent (
   
 ) {
 
-  $configured_policy_servers   = $::facts['ca_sso_web_agent_policy_servers']
-  $host_config_file            = "${install_dir}/config/SmHost.conf"
-  $installed_version           = $::facts['ca_sso_web_agent_version']
-  $load_plugin                 = "${install_dir}/bin/libHttpPlugin.so"
-  $local_config_file           = "${install_dir}/config/LocalConfig.conf"
-  $log_file                    = "${install_dir}/log/WebAgent.log"
-  $trace_config_file           = "${install_dir}/config/WebAgentTrace.conf"
-  $trace_file                  = "${install_dir}/log/WebAgentTrace.log"
-  $web_agent_config_file       = "${install_dir}/config/WebAgent.conf"
+  $configured_policy_servers = $::facts['ca_sso_web_agent_policy_servers']
+  $installed_version         = $::facts['ca_sso_web_agent_version']
+  $load_plugin               = "${install_dir}/bin/libHttpPlugin.so"
+  $log_file                  = "${install_dir}/log/WebAgent.log"
+  $trace_file                = "${install_dir}/log/WebAgentTrace.log"
 
 
-  if $version != $installed_version {
+
+  notify { "version specified: ${version} installed version: ${installed_version}": }
+
+  if $installed_version {
+    if $installed_version != $version {
+      # Installed, but doesn't match the version specified in hiera
+      notify { "Installed, but version mismatch": }
+      contain ca_sso_web_agent::uninstall
+      contain ca_sso_web_agent::install
+      contain ca_sso_web_agent::register
+      contain ca_sso_web_agent::config
+    }
+    elsif $installed_version == $version {
+      notify { "Installed, and versions match": }
+      contain ca_sso_web_agent::config
+    }
+  }
+  else {
+    notify { "Installed version (${installed_version}) is NOT defined": }
+    # Fresh installation
     contain ca_sso_web_agent::preinstall
     contain ca_sso_web_agent::install
     contain ca_sso_web_agent::register
     contain ca_sso_web_agent::config
   }
-  #else {
-    #notify { "VERSION MATCH!!! --> version ${version} = installed version ${installed_version}": }
-    #notify { "VERSION MATCH!!!": }
-  #}
-
-  file { '/usr/local/bin/smreghost':
-    ensure => link,
-    target => "${install_dir}/bin/smreghost",
-  }
-  file { "${host_config_file}":
-    owner => 'apache',
-  }
-
-  # WebAgent.conf
-  file { $web_agent_config_file:
-    ensure  => file,
-#    mode    => $settings_file_mode,
-#    owner   => $settings_file_owner,                                                                                                   
-#    group   => $settings_file_group,
-    content => template('ca_sso_web_agent/WebAgent.conf.erb'),
-  }
-  # LocalConfig.conf
-  file { $local_config_file:
-    ensure  => file,
-#    mode    => $settings_file_mode,
-#    owner   => $settings_file_owner,                                                                                                   
-#    group   => $settings_file_group,
-    content => template('ca_sso_web_agent/LocalConfig.conf.erb'),
-  }
-  # WebAgentTrace.conf
-  file { $trace_config_file:
-    ensure  => file,
-#    mode    => $settings_file_mode,
-#    owner   => $settings_file_owner,                                                                                                   
-#    group   => $settings_file_group,
-    content => template('ca_sso_web_agent/WebAgentTrace.conf.erb'),
-  }
-
-  if $configured_policy_servers {
-    $configured_policy_servers.each | String $configured_policy_server | {
-      if ! ( $configured_policy_server in $policy_servers ) {
-        # Configured policy server in SmHost.conf does not match desired policy server. Need to delete... 
-        notify { "Deleting ${configured_policy_server} from SmHost.conf": }
-        file_line { "SmHost.conf-${configured_policy_server}":
-          ensure => absent,
-          path   => "${install_dir}/config/SmHost.conf",
-          line   => $configured_policy_server,
-        }
-      }
-    }
-  }
-  $policy_servers.each | String $policy_server | {
-    if ! ( $policy_server in $configured_policy_servers ) {
-      # Policy server is not present in SmHost.conf. Need to add... 
-      notify { "Adding ${policy_server} to ${install_dir}/config/SmHost.conf": }
-      file_line { "SmHost.conf-${policy_server}":
-        ensure => present,
-        after  => '#Add additional bootstrap policy servers here for fault tolerance.',
-        path   => "${install_dir}/config/SmHost.conf",
-        line   => $policy_server,
-      }
-    }
-  }
-
-  include ::apache
-  create_resources('::apache::custom_config', $apache_conf)
-
 
 }

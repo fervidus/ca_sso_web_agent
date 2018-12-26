@@ -3,6 +3,7 @@
 apache::service_restart: 'foo'
 
 ca_sso_web_agent::apache_conf:
+  # Creates /etc/httpd/conf.d/35-ca_sso_web_agent.conf
   ca_sso_web_agent:                                                                                   
     content: |
       PassEnv CAPKIHOME
