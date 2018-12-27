@@ -73,16 +73,14 @@ class ca_sso_web_agent::config {
     target => "${install_dir}/bin/smreghost",
   }
   file { "${host_config_file}":
-#    ensure => $ensure,
     owner  => 'apache',
   }
-#  @TODO: Check to see if apache user needs ownership/permissions on log files to write...
-#  file { "${log_file}":
-#    owner  => 'apache',
-#  }
-#  file { "${trace_file}":
-#    owner  => 'apache',
-#  }
+  file { "${log_file}":
+    owner  => 'apache',
+  }
+  file { "${trace_file}":
+    owner  => 'apache',
+  }
 
   # WebAgent.conf
   file { $web_agent_config_file:
