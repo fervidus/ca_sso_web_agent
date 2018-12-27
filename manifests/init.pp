@@ -5,8 +5,9 @@
 # @example
 #   include ca_sso_web_agent
 class ca_sso_web_agent (
-  Hash $apache_conf,
+  #Hash $apache_conf,
   String $install_dir,
+  String $install_source,
   Array  $policy_servers,
   Array  $prereq_packages,
   String $properties_file,
@@ -44,31 +45,31 @@ class ca_sso_web_agent (
   $log_file                  = "${install_dir}/log/WebAgent.log"
   $trace_file                = "${install_dir}/log/WebAgentTrace.log"
 
-
-
-  notify { "version specified: ${version} installed version: ${installed_version}": }
+  #notify { "version specified: ${version} installed version: ${installed_version}": }
 
   if $installed_version {
     if $installed_version != $version {
       # Installed, but doesn't match the version specified in hiera
       notify { "Installed, but version mismatch": }
       contain ca_sso_web_agent::uninstall
+      contain ca_sso_web_agent::preinstall
       contain ca_sso_web_agent::install
-      contain ca_sso_web_agent::register
       contain ca_sso_web_agent::config
+      contain ca_sso_web_agent::register
     }
     elsif $installed_version == $version {
-      notify { "Installed, and versions match": }
+      # Installed and versions match. Make sure config is in place.
+      #notify { "Installed, and versions match": }
       contain ca_sso_web_agent::config
     }
   }
   else {
-    notify { "Installed version (${installed_version}) is NOT defined": }
+    #notify { "Installed version (${installed_version}) is NOT defined": }
     # Fresh installation
     contain ca_sso_web_agent::preinstall
     contain ca_sso_web_agent::install
-    contain ca_sso_web_agent::register
     contain ca_sso_web_agent::config
+    contain ca_sso_web_agent::register
   }
 
 }

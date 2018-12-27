@@ -16,7 +16,6 @@ class ca_sso_web_agent::register {
   $policy_server_ip = $::ca_sso_web_agent::registration_policy_server_ip
   $user             = $::ca_sso_web_agent::registration_username
   
-  # @TODO This exec creates SmHost.conf and must be executed prior to adding policy servers to SmHost.conf through file_line 
   exec {'Register CA SSO Web Agent':
     command     => "smreghost -i $policy_server_ip -hn ${hn} -u ${user} -p ${password} -hc ${hc} -f ${host_config_file} -cf ${cf} -o",
     environment => [ "LD_LIBRARY_PATH=${install_dir}/bin:${install_dir}/bin/thirdparty:\${LD_LIBRARY_PATH}", "CAPKIHOME=${install_dir}/CAPKI" ],

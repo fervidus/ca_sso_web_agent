@@ -10,6 +10,7 @@ class ca_sso_web_agent::install {
   include ::archive
 
   $install_dir     = $::ca_sso_web_agent::install_dir
+  $install_source  = $::ca_sso_web_agent::install_source
   $properties_file = $::ca_sso_web_agent::properties_file
   $temp_location   = $::ca_sso_web_agent::temp_location
   $version         = $::ca_sso_web_agent::version
@@ -22,6 +23,7 @@ class ca_sso_web_agent::install {
     content => "USER_INSTALL_DIR=${install_dir}\n",
   }
 
+# Move this to profile::ca_sso_web_agent ???
   case $version {
     '12.52.109.2620': { 
       $installation_binary = 'ca-wa-12.52-sp01-cr09-linux-x86-64.bin'
@@ -31,10 +33,9 @@ class ca_sso_web_agent::install {
   }
 
   # Get installation binary
-  # @TODO: Upload binary to artifactory and update code below to use archive::artifactory
   archive { "${temp_location}/${installation_zip}":
     ensure       => present,
-    source       => "/root/ca-wa-install/${installation_zip}",
+    source       => $install_source,
     extract      => true,
     extract_path => $temp_location,
     creates      => "${temp_location}/${installation_zip}",
@@ -45,7 +46,6 @@ class ca_sso_web_agent::install {
     command => "${installation_binary} -f ${properties_file} -i silent",
     path    => $temp_location,
     user    => root,
-#    refreshonly => true,
   }
   exec {'Remove temp install files':
     command => "rm -rf ${temp_location}",

@@ -9,7 +9,7 @@ class ca_sso_web_agent::config (
 
 ) {
 
-  $apache_conf               = $::ca_sso_web_agent::apache_conf
+  #$apache_conf               = $::ca_sso_web_agent::apache_conf
   $install_dir               = $::ca_sso_web_agent::install_dir
   $configured_policy_servers = $::ca_sso_web_agent::configured_policy_servers
   $host_config_file          = "${install_dir}/config/SmHost.conf"
@@ -27,7 +27,12 @@ class ca_sso_web_agent::config (
     $smreghost_link = link
 
     # /etc/httpd/conf.d/35-ca_sso_web_agent.conf
-    create_resources('::apache::custom_config', $apache_conf)
+    $apache_conf_str = "PassEnv CAPKIHOME\nLoadModule sm_module ${install_dir}/bin/libmod_sm24.so\nSmInitFile ${install_dir}/config/WebAgent.conf\n"
+    apache::custom_config { 'ca_sso_web_agent':
+      content       => $apache_conf_str,
+      priority      => '35',
+      verify_config => false,
+    }
   }
   
   file_line { 'etc-sysconfig-httpd-NETE_WA_ROOT':

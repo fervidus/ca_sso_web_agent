@@ -1,18 +1,8 @@
 ---
 # Required, otherwise you will receive the following in the apache logs: "Siteminder Web Agent: restart not supported."
-apache::service_restart: 'foo'
+#@TODO
+#apache::service_restart: 'apachectl stop && apachectl start'
 
-ca_sso_web_agent::apache_conf:
-  # Creates /etc/httpd/conf.d/35-ca_sso_web_agent.conf
-  ca_sso_web_agent:                                                                                   
-    content: |
-      PassEnv CAPKIHOME
-      LoadModule sm_module "%{::ca_sso_web_agent_install_dir}/bin/libmod_sm24.so"
-      SmInitFile "%{::ca_sso_web_agent_install_dir}/config/WebAgent.conf"
-    priority: '35'
-    verify_config: false
-
-#ca_sso_web_agent::install_dir: '/app/CA/webagent'
 ca_sso_web_agent::install_dir: '/app/ca/webagent'
 # The following packages are CA SSO Web Agent prerequisites.
 # https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/installing/install-agents/web-agent-for-apache/apache-based-server-preparations-for-linux
@@ -33,7 +23,6 @@ ca_sso_web_agent::registration_fips_mode: 'COMPAT'
 ca_sso_web_agent::temp_location: '/tmp/ca_sso_web_agent_install'
 
 # Parameters for WebAgent.conf template
-#ca_sso_web_agent::agent_config_object: ''
 ca_sso_web_agent::enable_local_config: false
 ca_sso_web_agent::enable_web_agent: true
 ca_sso_web_agent::locale: 'en-US'
