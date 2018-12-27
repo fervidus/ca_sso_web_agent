@@ -1,1 +1,41 @@
 ---
+# Required, otherwise you will receive the following in the apache logs: "Siteminder Web Agent: restart not supported."
+#@TODO
+#apache::service_restart: 'apachectl stop && apachectl start'
+
+ca_sso_web_agent::install_dir: '/app/ca/webagent'
+# The following packages are CA SSO Web Agent prerequisites.
+# https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/installing/install-agents/web-agent-for-apache/apache-based-server-preparations-for-linux
+ca_sso_web_agent::prereq_packages:
+  - 'binutils'
+  - 'gcc'
+  - 'keyutils-libs.i686'
+  - 'libidn.i686'
+  - 'libidn.so.11'
+  - 'libstdc++.i686'
+  - 'libXext.i686'
+  - 'libXrender.i686'
+  - 'libXtst.i686'
+  - 'ncurses-libs.i686'
+  # unzip is required to extract installation zip
+  - 'unzip'
+
+ca_sso_web_agent::properties_file: 'ca-wa-installer.properties'
+ca_sso_web_agent::registration_fips_mode: 'COMPAT'
+ca_sso_web_agent::temp_location: '/tmp/ca_sso_web_agent_install'
+
+# Parameters for WebAgent.conf template
+ca_sso_web_agent::enable_local_config: false
+ca_sso_web_agent::enable_web_agent: true
+ca_sso_web_agent::locale: 'en-US'
+ca_sso_web_agent::server_path: '/etc/httpd'
+#
+# Parameters for LocalConfig.conf template
+ca_sso_web_agent::enable_log_file: true
+ca_sso_web_agent::enable_trace_file: true
+ca_sso_web_agent::log_file_size: '100'
+ca_sso_web_agent::trace_file_size: '100'
+
+# Parameters for WebAgentTrace.conf template
+ca_sso_web_agent::trace_log_components: 'AgentFramework, HTTPAgent, WebAgent'
+ca_sso_web_agent::trace_log_data: 'Date, Time, Pid, Tid, SrcFile, Function, TransactionID, IPAddr, IPPort, AgentName, Resource, User, Message'
