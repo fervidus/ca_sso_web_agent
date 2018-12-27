@@ -7,7 +7,6 @@
 class ca_sso_web_agent::register {
   $install_dir      = $::ca_sso_web_agent::install_dir
   $cf               = $::ca_sso_web_agent::registration_fips_mode
-  #$host_config_file = $::ca_sso_web_agent::host_config_file
   $host_config_file = "${install_dir}/config/SmHost.conf"
   $hc               = $::ca_sso_web_agent::registration_host_config_object
   $hn               = $::ca_sso_web_agent::registration_hostname
@@ -15,7 +14,7 @@ class ca_sso_web_agent::register {
   $path             = "${install_dir}/bin"
   $policy_server_ip = $::ca_sso_web_agent::registration_policy_server_ip
   $user             = $::ca_sso_web_agent::registration_username
-  
+
   exec {'Register CA SSO Web Agent':
     command     => "smreghost -i $policy_server_ip -hn ${hn} -u ${user} -p ${password} -hc ${hc} -f ${host_config_file} -cf ${cf} -o",
     environment => [ "LD_LIBRARY_PATH=${install_dir}/bin:${install_dir}/bin/thirdparty:\${LD_LIBRARY_PATH}", "CAPKIHOME=${install_dir}/CAPKI" ],

@@ -6,25 +6,36 @@
 #   include ca_sso_web_agent::config
 class ca_sso_web_agent::config (
   Boolean $uninstall = false,
+  Optional[String] $uninstall_dir = '',
 
 ) {
 
-  #$apache_conf               = $::ca_sso_web_agent::apache_conf
-  $install_dir               = $::ca_sso_web_agent::install_dir
+#  $install_dir               = $::ca_sso_web_agent::install_dir
   $configured_policy_servers = $::ca_sso_web_agent::configured_policy_servers
-  $host_config_file          = "${install_dir}/config/SmHost.conf"
-  $local_config_file         = "${install_dir}/config/LocalConfig.conf"
+#  $local_config_file         = "${install_dir}/config/LocalConfig.conf"
   $policy_servers            = $::ca_sso_web_agent::policy_servers
-  $trace_config_file         = "${install_dir}/config/WebAgentTrace.conf"
-  $web_agent_config_file     = "${install_dir}/config/WebAgent.conf"
+#  $trace_config_file         = "${install_dir}/config/WebAgentTrace.conf"
+#  $web_agent_config_file     = "${install_dir}/config/WebAgent.conf"
 
   if $uninstall {
     $ensure         = absent
     $smreghost_link = absent
+
+    $install_dir               = $uninstall_dir
+    $host_config_file          = "${install_dir}/config/SmHost.conf"
+    $local_config_file         = "${install_dir}/config/LocalConfig.conf"
+    $trace_config_file         = "${install_dir}/config/WebAgentTrace.conf"
+    $web_agent_config_file     = "${install_dir}/config/WebAgent.conf"
   }
   else {
     $ensure         = present
     $smreghost_link = link
+
+    $install_dir               = $::ca_sso_web_agent::install_dir
+    $host_config_file          = "${install_dir}/config/SmHost.conf"
+    $local_config_file         = "${install_dir}/config/LocalConfig.conf"
+    $trace_config_file         = "${install_dir}/config/WebAgentTrace.conf"
+    $web_agent_config_file     = "${install_dir}/config/WebAgent.conf"
 
     # /etc/httpd/conf.d/35-ca_sso_web_agent.conf
     $apache_conf_str = "PassEnv CAPKIHOME\nLoadModule sm_module ${install_dir}/bin/libmod_sm24.so\nSmInitFile ${install_dir}/config/WebAgent.conf\n"
@@ -39,27 +50,31 @@ class ca_sso_web_agent::config (
     ensure => $ensure,
     path   => '/etc/sysconfig/httpd',
     line   => "NETE_WA_ROOT=${install_dir}",
+    match  => '^NETE_WA_ROOT=',
   }
   file_line { 'etc-sysconfig-httpd-NETE_WA_PATH':
     ensure => $ensure,
-    path => '/etc/sysconfig/httpd',
-    line => "NETE_WA_PATH=${install_dir}/bin",
+    path   => '/etc/sysconfig/httpd',
+    line   => "NETE_WA_PATH=${install_dir}/bin",
+    match  => '^NETE_WA_PATH=',
   }
   file_line { 'etc-sysconfig-httpd-CAPKIHOME':
     ensure => $ensure,
-    path => '/etc/sysconfig/httpd',
-    line => "CAPKIHOME=${install_dir}/CAPKI",
+    path   => '/etc/sysconfig/httpd',
+    line   => "CAPKIHOME=${install_dir}/CAPKI",
+    match  => '^CAPKIHOME=',
   }
   file_line { 'etc-sysconfig-httpd-LD_LIBRARY_PATH':
     ensure => $ensure,
-    path => '/etc/sysconfig/httpd',
-    line => "LD_LIBRARY_PATH=${install_dir}/bin:${install_dir}/bin/thirdparty:\${LD_LIBRARY_PATH}",
+    path   => '/etc/sysconfig/httpd',
+    line   => "LD_LIBRARY_PATH=${install_dir}/bin:${install_dir}/bin/thirdparty:\${LD_LIBRARY_PATH}",
+    match  => '^LD_LIBRARY_PATH=',
   }
   file_line { 'etc-sysconfig-httpd-PATH':
     ensure => $ensure,
-    path => '/etc/sysconfig/httpd',
-    #line => "PATH=${install_dir}/bin:\${PATH}",
-    line => "PATH=${install_dir}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/puppetlabs/bin",
+    path   => '/etc/sysconfig/httpd',
+    line   => "PATH=${install_dir}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/opt/puppetlabs/bin",
+    match  => '^PATH=',
   }
 
   file { '/usr/local/bin/smreghost':
@@ -67,7 +82,7 @@ class ca_sso_web_agent::config (
     target => "${install_dir}/bin/smreghost",
   }
   file { "${host_config_file}":
-    ensure => $ensure,
+#    ensure => $ensure,
     owner  => 'apache',
   }
 
@@ -115,6 +130,5 @@ class ca_sso_web_agent::config (
       }
     }
   }
-
 
 }
