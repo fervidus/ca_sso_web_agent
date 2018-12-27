@@ -9,11 +9,13 @@ class ca_sso_web_agent::install {
   # archive module is used to download packages
   include ::archive
 
-  $install_dir     = $::ca_sso_web_agent::install_dir
-  $install_source  = $::ca_sso_web_agent::install_source
-  $properties_file = $::ca_sso_web_agent::properties_file
-  $temp_location   = $::ca_sso_web_agent::temp_location
-  $version         = $::ca_sso_web_agent::version
+  $installation_binary = $::ca_sso_web_agent::installation_binary
+  $installation_zip    = $::ca_sso_web_agent::installation_zip
+  $install_dir         = $::ca_sso_web_agent::install_dir
+  $install_source      = $::ca_sso_web_agent::install_source
+  $properties_file     = $::ca_sso_web_agent::properties_file
+  $temp_location       = $::ca_sso_web_agent::temp_location
+  $version             = $::ca_sso_web_agent::version
 
   file { $temp_location:
     ensure => directory,
@@ -21,15 +23,6 @@ class ca_sso_web_agent::install {
 
   file { "${temp_location}/${properties_file}":
     content => "USER_INSTALL_DIR=${install_dir}\n",
-  }
-
-# @TODO Move this to profile::ca_sso_web_agent ???
-  case $version {
-    '12.52.109.2620': { 
-      $installation_binary = 'ca-wa-12.52-sp01-cr09-linux-x86-64.bin'
-      $installation_zip    = 'ca-wa-12.52-sp01-cr09a-linux-x86-64.zip'
-    }
-    default: { fail("Unsupported CA SSO Web Agent version ${version}") }
   }
 
   # Get installation binary

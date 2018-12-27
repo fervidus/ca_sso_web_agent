@@ -17,6 +17,8 @@ ca_sso_web_agent::prereq_packages:
   - 'libXrender.i686'
   - 'libXtst.i686'
   - 'ncurses-libs.i686'
+  # unzip is required to extract installation zip
+  - 'unzip'
 
 ca_sso_web_agent::properties_file: 'ca-wa-installer.properties'
 ca_sso_web_agent::registration_fips_mode: 'COMPAT'

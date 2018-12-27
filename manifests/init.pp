@@ -5,6 +5,8 @@
 # @example
 #   include ca_sso_web_agent
 class ca_sso_web_agent (
+  String $installation_binary,
+  String $installation_zip,
   String $install_dir,
   String $install_source,
   Array  $policy_servers,
