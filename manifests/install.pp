@@ -23,7 +23,7 @@ class ca_sso_web_agent::install {
     content => "USER_INSTALL_DIR=${install_dir}\n",
   }
 
-# Move this to profile::ca_sso_web_agent ???
+# @TODO Move this to profile::ca_sso_web_agent ???
   case $version {
     '12.52.109.2620': { 
       $installation_binary = 'ca-wa-12.52-sp01-cr09-linux-x86-64.bin'

@@ -38,24 +38,19 @@ class ca_sso_web_agent (
   
 ) {
 
-  $configured_policy_servers = $::facts['ca_sso_web_agent_policy_servers']
-  $installed_version         = $::facts['ca_sso_web_agent_version']
-#  $load_plugin               = "${install_dir}/bin/libHttpPlugin.so"
-#  $log_file                  = "${install_dir}/log/WebAgent.log"
-#  $trace_file                = "${install_dir}/log/WebAgentTrace.log"
-  $web_agent_root_dir        = $::facts['ca_sso_web_agent_install_dir']
+  $installed_version  = $::facts['ca_sso_web_agent_version']
+  $web_agent_root_dir = $::facts['ca_sso_web_agent_install_dir']
 
   if $installed_version {
     if ( $installed_version != $version ) or ( $web_agent_root_dir != $install_dir ) {
       # Installed, but either the version or installation directory has changed.
-      notify { "Installed, but version mismatch or installation directory has changed": }
+      notify { "Installed, but version mismatch or installation directory has changed!": }
       contain ca_sso_web_agent::uninstall
-
-#      contain ca_sso_web_agent::uninstall
-#      contain ca_sso_web_agent::preinstall
-#      contain ca_sso_web_agent::install
-#      contain ca_sso_web_agent::config
-#      contain ca_sso_web_agent::register
+      contain ca_sso_web_agent::preinstall
+      contain ca_sso_web_agent::install
+      # Call register class prior to config class or SmHost.conf file will be overwritten by registration.
+      contain ca_sso_web_agent::register
+      contain ca_sso_web_agent::config
     }
     elsif $installed_version == $version {
       # Installed and versions match. Ensure desired config is in place.

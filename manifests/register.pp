@@ -13,6 +13,7 @@ class ca_sso_web_agent::register {
   $password         = $::ca_sso_web_agent::registration_password
   $path             = "${install_dir}/bin"
   $policy_server_ip = $::ca_sso_web_agent::registration_policy_server_ip
+  $policy_servers   = $::ca_sso_web_agent::policy_servers
   $user             = $::ca_sso_web_agent::registration_username
 
   exec {'Register CA SSO Web Agent':
@@ -20,6 +21,16 @@ class ca_sso_web_agent::register {
     environment => [ "LD_LIBRARY_PATH=${install_dir}/bin:${install_dir}/bin/thirdparty:\${LD_LIBRARY_PATH}", "CAPKIHOME=${install_dir}/CAPKI" ],
     path        => $path,
     user        => root,
+  }
+
+  # Add policy servers not added during registration
+  $policy_servers.each | String $policy_server | {
+    file_line { "Add ${policy_server} to SmHost.conf":
+      ensure => present,
+      after  => '#Add additional bootstrap policy servers here for fault tolerance.',
+      path   => "${install_dir}/config/SmHost.conf",
+      line   => $policy_server,
+    }
   }
 
 }
