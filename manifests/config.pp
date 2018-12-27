@@ -11,9 +11,20 @@ class ca_sso_web_agent::config (
 ) {
 
 #  $install_dir               = $::ca_sso_web_agent::install_dir
+  $agent_config_object       = $::ca_sso_web_agent::agent_config_object
   $configured_policy_servers = $::ca_sso_web_agent::configured_policy_servers
+  $enable_local_config       = $::ca_sso_web_agent::enable_local_config
+  $enable_log_file           = $::ca_sso_web_agent::enable_log_file
+  $enable_trace_file         = $::ca_sso_web_agent::enable_trace_file
+  $enable_web_agent          = $::ca_sso_web_agent::enable_web_agent
 #  $local_config_file         = "${install_dir}/config/LocalConfig.conf"
+  $locale                    = $::ca_sso_web_agent::locale
+  $log_file_size             = $::ca_sso_web_agent::log_file_size
   $policy_servers            = $::ca_sso_web_agent::policy_servers
+  $server_path               = $::ca_sso_web_agent::server_path
+  $trace_file_size           = $::ca_sso_web_agent::trace_file_size
+  $trace_log_components      = $::ca_sso_web_agent::trace_log_components
+  $trace_log_data            = $::ca_sso_web_agent::trace_log_data
 #  $trace_config_file         = "${install_dir}/config/WebAgentTrace.conf"
 #  $web_agent_config_file     = "${install_dir}/config/WebAgent.conf"
 
@@ -23,8 +34,11 @@ class ca_sso_web_agent::config (
 
     $install_dir               = $uninstall_dir
     $host_config_file          = "${install_dir}/config/SmHost.conf"
+    $load_plugin               = "${install_dir}/bin/libHttpPlugin.so"
     $local_config_file         = "${install_dir}/config/LocalConfig.conf"
+    $log_file                  = "${install_dir}/log/WebAgent.log"
     $trace_config_file         = "${install_dir}/config/WebAgentTrace.conf"
+    $trace_file                = "${install_dir}/log/WebAgentTrace.log"
     $web_agent_config_file     = "${install_dir}/config/WebAgent.conf"
   }
   else {
@@ -33,8 +47,11 @@ class ca_sso_web_agent::config (
 
     $install_dir               = $::ca_sso_web_agent::install_dir
     $host_config_file          = "${install_dir}/config/SmHost.conf"
+    $load_plugin               = "${install_dir}/bin/libHttpPlugin.so"
     $local_config_file         = "${install_dir}/config/LocalConfig.conf"
+    $log_file                  = "${install_dir}/log/WebAgent.log"
     $trace_config_file         = "${install_dir}/config/WebAgentTrace.conf"
+    $trace_file                = "${install_dir}/log/WebAgentTrace.log"
     $web_agent_config_file     = "${install_dir}/config/WebAgent.conf"
 
     # /etc/httpd/conf.d/35-ca_sso_web_agent.conf
@@ -85,6 +102,13 @@ class ca_sso_web_agent::config (
 #    ensure => $ensure,
     owner  => 'apache',
   }
+#  @TODO: Check to see if apache user needs ownership/permissions on log files to write...
+#  file { "${log_file}":
+#    owner  => 'apache',
+#  }
+#  file { "${trace_file}":
+#    owner  => 'apache',
+#  }
 
   # WebAgent.conf
   file { $web_agent_config_file:

@@ -38,12 +38,11 @@ class ca_sso_web_agent (
   
 ) {
 
-
   $configured_policy_servers = $::facts['ca_sso_web_agent_policy_servers']
   $installed_version         = $::facts['ca_sso_web_agent_version']
-  $load_plugin               = "${install_dir}/bin/libHttpPlugin.so"
-  $log_file                  = "${install_dir}/log/WebAgent.log"
-  $trace_file                = "${install_dir}/log/WebAgentTrace.log"
+#  $load_plugin               = "${install_dir}/bin/libHttpPlugin.so"
+#  $log_file                  = "${install_dir}/log/WebAgent.log"
+#  $trace_file                = "${install_dir}/log/WebAgentTrace.log"
   $web_agent_root_dir        = $::facts['ca_sso_web_agent_install_dir']
 
   if $installed_version {
