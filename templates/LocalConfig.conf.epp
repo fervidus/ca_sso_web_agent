@@ -1,0 +1,17 @@
+<% if $ca_sso_web_agent::enable_log_file { -%>
+LogFile="YES"
+<% } -%>
+<% else { -%>
+LogFile="NO"
+<% } -%>
+LogFileName="<%= $ca_sso_web_agent::config::log_file %>"
+LogFileSize="<%= $ca_sso_web_agent::log_file_size %>"
+<% if $ca_sso_web_agent::enable_trace_file { -%>
+TraceFile="YES"
+<% } -%>
+<%- else { -%>
+TraceFile="NO"
+<% } -%>
+TraceFileName="<%= $ca_sso_web_agent::config::trace_file %>"
+TraceFileSize="<%= $ca_sso_web_agent::trace_file_size %>"
+TraceConfigFile="<%= $ca_sso_web_agent::config::trace_config_file %>"

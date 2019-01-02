@@ -85,17 +85,17 @@ class ca_sso_web_agent::config {
   # WebAgent.conf
   file { $web_agent_config_file:
     ensure  => file,
-    content => template('ca_sso_web_agent/WebAgent.conf.erb'),
+    content => epp('ca_sso_web_agent/WebAgent.conf.epp'),
   }
   # LocalConfig.conf
   file { $local_config_file:
     ensure  => file,
-    content => template('ca_sso_web_agent/LocalConfig.conf.erb'),
+    content => epp('ca_sso_web_agent/LocalConfig.conf.epp'),
   }
   # WebAgentTrace.conf
   file { $trace_config_file:
     ensure  => file,
-    content => template('ca_sso_web_agent/WebAgentTrace.conf.erb'),
+    content => epp('ca_sso_web_agent/WebAgentTrace.conf.epp'),
   }
 
   if $configured_policy_servers {

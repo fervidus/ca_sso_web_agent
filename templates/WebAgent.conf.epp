@@ -1,0 +1,31 @@
+# WebAgent.conf - configuration file for SiteMinder Web Agent
+
+LOCALE=<%= $ca_sso_web_agent::locale %>
+
+#agentname="<AgentName>, <IPAddress>"
+HostConfigFile="<%= $ca_sso_web_agent::config::host_config_file %>"
+AgentConfigObject="<%= $ca_sso_web_agent::agent_config_object %>"
+<% if $ca_sso_web_agent::enable_web_agent { -%>
+EnableWebAgent="YES"
+<% } -%>
+<% else { -%>
+EnableWebAgent="NO"
+<% } -%>
+ServerPath="<%= $ca_sso_web_agent::server_path %>"
+<%- if $ca_sso_web_agent::enable_local_config { -%>
+localconfigfile="<%= $ca_sso_web_agent::config::local_config_file %>"
+<% } -%>
+<%- else { -%>
+#localconfigfile="<%= $ca_sso_web_agent::local_config_file %>"
+<% } -%>
+LoadPlugin="<%= $ca_sso_web_agent::config::load_plugin %>"
+#LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libAffiliate10Plugin.so"
+#LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libSAMLAffiliatePlugin.so"
+#LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libeTSSOPlugin.so"
+#LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libIntroscopePlugin.so"
+#LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libSAMLDataPlugin.so"
+#LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libOpenIDPlugin.so"
+#LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libDisambiguatePlugin.so"
+#LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libOAuthPlugin.so"
+#LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libCertSessionLinkerPlugin.so"
+#AgentIdFile="<%= $ca_sso_web_agent::agent_id_file %>"
