@@ -5,23 +5,76 @@
 # @example
 #   include ca_sso_web_agent
 #
-# @param $installation_binary
-# @param $installation_zip
-# @param $install_dir
-# @param $install_source
-# @param $policy_servers
-# @param $prereq_packages
-# @param $properties_file
-# @param $registration_fips_mode
-# @param $registration_host_config_object
-# @param $registration_hostname
-# @param $registration_password
-# @param $registration_policy_server_ip
-# @param $registration_username
-# @param $temp_location
-# @param $version
-
-###################################
+# @param installation_binary
+#   The name of the binary the installer uses to install the web agent.
+# @param installation_zip
+#   The name of the zip file containing the installation binary.
+# @param install_dir
+#   The path to install the web agent.
+# @param install_source
+#   The http(s) or file path to the installation zip.
+# @param policy_servers
+#   The policy servers to add to SmHost.conf.
+# @param prereq_packages
+#   Prerequisites packages to install prior to installation.
+# @param properties_file
+#   The name of the properties file to use for unattended installation.
+# @param temp_location
+#   The path to the temporary location where the installation files are extracted.
+# @param version
+#   The version of the web agent to install. If the version specified does not match the installed version, the installed version will be
+#   removed and replaced with the version specified through this parameter.
+#   ##### Registration (smreghost) parameters:
+#   https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/administrating/register-a-trusted-host-using-the-smreghost-registration-tool
+# @param registration_fips_mode
+#   Specifies one of the following FIPS modes:
+#
+#   COMPAT--Specifies non-FIPS mode, which lets the Policy Server and the Agents read and write information using the existing CA Single
+#   Sign-On encryption algorithms. If your organization does not require the use of FIPS-compliant algorithms, the Policy Server and the
+#   Agents can operate in non-FIPS mode without further configuration.
+#
+#   ONLY--Specifies full-FIPS mode, which requires that the Policy Server and Web Agents read and write information using only FIPS 140-2
+#   algorithms.
+# @param registration_host_config_object
+#   The name of the Host Configuration Object configured at the Policy Server. This object must exist on the Policy Server before you can
+#   register a trusted host.
+# @param registration_hostname
+#   The name of the host to be registered. This can be any name that identifies the host, but it must be unique. After registration, this
+#   name is placed in the Trusted Host list in the Administrative UI.
+# @param registration_password
+#   The password of the Administrator who is allowed to register a trusted host.
+# @param registration_policy_server_ip
+#   The IP address of the Policy Server where you are registering this host.
+# @param registration_username
+#   The name of the CA Single Sign-On administrator with the rights to register a trusted host.
+#
+#   ##### WebAgent.conf parameters:
+# @param agent_config_object
+#   WebAgent.conf
+# @param enable_local_config
+#   WebAgent.conf
+# @param enable_web_agent
+#   WebAgent.conf
+# @param locale
+#   WebAgent.conf
+# @param server_path
+#   WebAgent.conf
+#
+#   ##### LocalConfig.conf parameters:
+# @param enable_log_file
+#   LocalConfig.conf
+# @param enable_trace_file
+#   LocalConfig.conf
+# @param log_file_size
+#   LocalConfig.conf
+# @param trace_file_size
+#   LocalConfig.conf
+#
+#   ##### WebAgentTrace.conf parameters:
+# @param trace_log_components
+#   WebAgentTrace.conf
+# @param trace_log_data
+#   WebAgentTrace.conf
 class ca_sso_web_agent (
   String $installation_binary,
   String $installation_zip,
@@ -36,7 +89,7 @@ class ca_sso_web_agent (
   String $registration_password,
   String $registration_policy_server_ip,
   String $registration_username,
-  String $temp_location,
+  Optional[String] $temp_location,
   String $version,
 
   # Variables for WebAgent.conf template
