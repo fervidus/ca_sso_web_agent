@@ -4,6 +4,24 @@
 #
 # @example
 #   include ca_sso_web_agent
+#
+# @param $installation_binary
+# @param $installation_zip
+# @param $install_dir
+# @param $install_source
+# @param $policy_servers
+# @param $prereq_packages
+# @param $properties_file
+# @param $registration_fips_mode
+# @param $registration_host_config_object
+# @param $registration_hostname
+# @param $registration_password
+# @param $registration_policy_server_ip
+# @param $registration_username
+# @param $temp_location
+# @param $version
+
+###################################
 class ca_sso_web_agent (
   String $installation_binary,
   String $installation_zip,
@@ -37,7 +55,6 @@ class ca_sso_web_agent (
   # Variables for WebAgentTrace.conf template
   String $trace_log_components,
   String $trace_log_data,
-  
 ) {
 
   $installed_version  = $::facts['ca_sso_web_agent_version']
@@ -46,7 +63,7 @@ class ca_sso_web_agent (
   if $installed_version {
     if ( $installed_version != $version ) or ( $web_agent_root_dir != $install_dir ) {
       # Installed, but either the version or installation directory has changed.
-      notify { "Installed, but version mismatch or installation directory has changed!": }
+      notify { 'Installed, but version mismatch or installation directory has changed!': }
       contain ca_sso_web_agent::uninstall
       contain ca_sso_web_agent::preinstall
       contain ca_sso_web_agent::install

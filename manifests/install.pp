@@ -5,7 +5,6 @@
 # @example
 #   include ca_sso_web_agent::install
 class ca_sso_web_agent::install {
- 
   # archive module is used to download packages
   include ::archive
 

@@ -36,7 +36,6 @@ class ca_sso_web_agent::config {
     priority      => '35',
     verify_config => false,
   }
-  
   file_line { 'etc-sysconfig-httpd-NETE_WA_ROOT':
     ensure => present,
     path   => '/etc/sysconfig/httpd',
@@ -72,13 +71,13 @@ class ca_sso_web_agent::config {
     ensure => link,
     target => "${install_dir}/bin/smreghost",
   }
-  file { "${host_config_file}":
+  file { $host_config_file:
     owner  => 'apache',
   }
-  file { "${log_file}":
+  file { $log_file:
     owner  => 'apache',
   }
-  file { "${trace_file}":
+  file { $trace_file:
     owner  => 'apache',
   }
 
