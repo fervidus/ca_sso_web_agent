@@ -36,7 +36,6 @@ class ca_sso_web_agent::config {
     priority      => '35',
     verify_config => false,
   }
-  
   file_line { 'etc-sysconfig-httpd-NETE_WA_ROOT':
     ensure => present,
     path   => '/etc/sysconfig/httpd',
@@ -72,32 +71,30 @@ class ca_sso_web_agent::config {
     ensure => link,
     target => "${install_dir}/bin/smreghost",
   }
-  file { "${host_config_file}":
-#    ensure => $ensure,
+  file { $host_config_file:
     owner  => 'apache',
   }
-#  @TODO: Check to see if apache user needs ownership/permissions on log files to write...
-#  file { "${log_file}":
-#    owner  => 'apache',
-#  }
-#  file { "${trace_file}":
-#    owner  => 'apache',
-#  }
+  file { $log_file:
+    owner  => 'apache',
+  }
+  file { $trace_file:
+    owner  => 'apache',
+  }
 
   # WebAgent.conf
   file { $web_agent_config_file:
     ensure  => file,
-    content => template('ca_sso_web_agent/WebAgent.conf.erb'),
+    content => epp('ca_sso_web_agent/WebAgent.conf.epp'),
   }
   # LocalConfig.conf
   file { $local_config_file:
     ensure  => file,
-    content => template('ca_sso_web_agent/LocalConfig.conf.erb'),
+    content => epp('ca_sso_web_agent/LocalConfig.conf.epp'),
   }
   # WebAgentTrace.conf
   file { $trace_config_file:
     ensure  => file,
-    content => template('ca_sso_web_agent/WebAgentTrace.conf.erb'),
+    content => epp('ca_sso_web_agent/WebAgentTrace.conf.epp'),
   }
 
   if $configured_policy_servers {

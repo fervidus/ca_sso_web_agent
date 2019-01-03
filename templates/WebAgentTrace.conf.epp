@@ -116,5 +116,5 @@
 # NOTE: Specify only one filter on a line.
 
 # For all Web Agents
-components:  <%= @trace_log_components %>
-data: <%= @trace_log_data %>
+components:  <%= $ca_sso_web_agent::trace_log_components %>
+data: <%= $ca_sso_web_agent::trace_log_data %>

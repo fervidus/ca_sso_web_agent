@@ -17,7 +17,7 @@ class ca_sso_web_agent::register {
   $user             = $::ca_sso_web_agent::registration_username
 
   exec {'Register CA SSO Web Agent':
-    command     => "smreghost -i $policy_server_ip -hn ${hn} -u ${user} -p ${password} -hc ${hc} -f ${host_config_file} -cf ${cf} -o",
+    command     => "smreghost -i ${policy_server_ip} -hn ${hn} -u ${user} -p ${password} -hc ${hc} -f ${host_config_file} -cf ${cf} -o",
     environment => [ "LD_LIBRARY_PATH=${install_dir}/bin:${install_dir}/bin/thirdparty:\${LD_LIBRARY_PATH}", "CAPKIHOME=${install_dir}/CAPKI" ],
     path        => $path,
     user        => root,
