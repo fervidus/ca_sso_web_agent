@@ -130,36 +130,37 @@ Data type: `String`
 The name of the CA Single Sign-On administrator with the rights to register a trusted host. Default value: undef.
 
 ##### WebAgent.conf parameters:
+https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/configuring/web-agent-configuration/list-of-agent-configuration-parameters
 
 ##### `agent_config_object`
 
 Data type: `String`
 
-WebAgent.conf
+Determines which Agent Configuration Object that the agent should use. Default value: undef.
 
 ##### `enable_local_config`
 
 Data type: `Boolean`
 
-WebAgent.conf
+Enables or disables the LocalConfig.conf file, where most of Agent configuration settings reside. Default value: false
 
 ##### `enable_web_agent`
 
 Data type: `Boolean`
 
-WebAgent.conf
+Specifies whether an agent actively protects resources. Default value: false
 
 ##### `locale`
 
 Data type: `String`
 
-WebAgent.conf
+Specifies the language in which HTML pages for login, basic password services, and error responses are displayed. Default value: en-US
 
 ##### `server_path`
 
 Data type: `String`
 
-WebAgent.conf
+Identifies the web server directory to the Agent. Default value: /etc/httpd
 
 ##### LocalConfig.conf parameters:
 
@@ -167,25 +168,25 @@ WebAgent.conf
 
 Data type: `Boolean`
 
-LocalConfig.conf
+Turns Error (High Level) Logging on or off. Default value: false
 
 ##### `enable_trace_file`
 
 Data type: `Boolean`
 
-LocalConfig.conf
+Specifies whether the agent writes a trace (Low Level) file. Default value: false
 
 ##### `log_file_size`
 
 Data type: `String`
 
-LocalConfig.conf
+Specifies the size limit of the log file in megabytes. Default value: 0 (no rollover)
 
 ##### `trace_file_size`
 
 Data type: `String`
 
-LocalConfig.conf
+Specifies (in megabytes) the maximum size of a trace file. Default value: 0 (a new log file is not created)
 
 ##### WebAgentTrace.conf parameters:
 
@@ -193,11 +194,12 @@ LocalConfig.conf
 
 Data type: `String`
 
-WebAgentTrace.conf
+Trace log components to monitor. Default value: AgentFramework, HTTPAgent, WebAgent
 
 ##### `trace_log_data`
 
 Data type: `String`
 
-WebAgentTrace.conf
+Trace message data fields. Default value: Date, Time, Pid, Tid, SrcFile, Function, TransactionID, IPAddr, IPPort, AgentName, Resource,
+User, Message
 
