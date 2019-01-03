@@ -11,6 +11,7 @@ Facter.add(:ca_sso_web_agent_install_dir) do
       Facter::Core::Execution.exec("ls -l #{smreghost} | awk '{print $NF}' | cut -d/ -f-4")
     else
       smreghost = 'NOT FOUND'
+      return smreghost
     end
   end
 end
