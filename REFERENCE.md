@@ -5,13 +5,13 @@
 
 **Classes**
 
-* [`ca_sso_web_agent`](#ca_sso_web_agent): A short summary of the purpose of this class
+* [`ca_sso_web_agent`](#ca_sso_web_agent): Main class, includes all other classes.
 
 ## Classes
 
 ### ca_sso_web_agent
 
-A description of what this class does
+Installs, configures, and registers a CA SSO Web Agent.
 
 #### Examples
 
@@ -29,56 +29,58 @@ The following parameters are available in the `ca_sso_web_agent` class.
 
 Data type: `String`
 
-The name of the binary the installer uses to install the web agent.
+The name of the binary the installer uses to install the web agent. Default value: undef.
 
 ##### `installation_zip`
 
 Data type: `String`
 
-The name of the zip file containing the installation binary.
+The name of the zip file containing the installation binary. Default value: undef.
 
 ##### `install_dir`
 
 Data type: `String`
 
-The path to install the web agent.
+The path to install the web agent. Default value: /opt/ca/webagent
 
 ##### `install_source`
 
 Data type: `String`
 
-The http(s) or file path to the installation zip.
+The http(s) or file path to the installation zip. Default value: undef.
 
 ##### `policy_servers`
 
 Data type: `Array`
 
-The policy servers to add to SmHost.conf.
+The policy servers to add to SmHost.conf. Default value: undef.
 
 ##### `prereq_packages`
 
 Data type: `Array`
 
 Prerequisites packages to install prior to installation.
+Default value: ['binutils', 'gcc', 'keyutils-libs.i686', 'libidn.i686', 'libidn.so.11', 'libstdc++.i686', 'libXext.i686',
+'libXrender.i686', 'libXtst.i686', 'ncurses-libs.i686', 'unzip']
 
 ##### `properties_file`
 
 Data type: `String`
 
-The name of the properties file to use for unattended installation.
+The name of the properties file to use for unattended installation. Default value: ca-wa-installer.properties
 
 ##### `temp_location`
 
-Data type: `Optional[String]`
+Data type: `String`
 
-The path to the temporary location where the installation files are extracted.
+The path to the temporary location where the installation files are extracted. Default value: /tmp/ca_sso_web_agent_install
 
 ##### `version`
 
 Data type: `String`
 
 The version of the web agent to install. If the version specified does not match the installed version, the installed version will be
-removed and replaced with the version specified through this parameter.
+removed and replaced with the version specified through this parameter. Default value: undef.
 ##### Registration (smreghost) parameters:
 https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/administrating/register-a-trusted-host-using-the-smreghost-registration-tool
 
@@ -86,7 +88,7 @@ https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/administrating/register-a-t
 
 Data type: `Enum['COMPAT', 'ONLY']`
 
-Specifies one of the following FIPS modes:
+Specifies one of the following FIPS modes. Default value: COMPAT
 
 COMPAT--Specifies non-FIPS mode, which lets the Policy Server and the Agents read and write information using the existing CA Single
 Sign-On encryption algorithms. If your organization does not require the use of FIPS-compliant algorithms, the Policy Server and the
@@ -100,32 +102,32 @@ algorithms.
 Data type: `String`
 
 The name of the Host Configuration Object configured at the Policy Server. This object must exist on the Policy Server before you can
-register a trusted host.
+register a trusted host. Default value: undef.
 
 ##### `registration_hostname`
 
 Data type: `String`
 
 The name of the host to be registered. This can be any name that identifies the host, but it must be unique. After registration, this
-name is placed in the Trusted Host list in the Administrative UI.
+name is placed in the Trusted Host list in the Administrative UI. Default value: undef.
 
 ##### `registration_password`
 
 Data type: `String`
 
-The password of the Administrator who is allowed to register a trusted host.
+The password of the Administrator who is allowed to register a trusted host. Default value: undef.
 
 ##### `registration_policy_server_ip`
 
 Data type: `String`
 
-The IP address of the Policy Server where you are registering this host.
+The IP address of the Policy Server where you are registering this host. Default value: undef.
 
 ##### `registration_username`
 
 Data type: `String`
 
-The name of the CA Single Sign-On administrator with the rights to register a trusted host.
+The name of the CA Single Sign-On administrator with the rights to register a trusted host. Default value: undef.
 
 ##### WebAgent.conf parameters:
 
