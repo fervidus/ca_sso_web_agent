@@ -51,32 +51,34 @@
 #   The name of the CA Single Sign-On administrator with the rights to register a trusted host. Default value: undef.
 #
 #   ##### WebAgent.conf parameters:
+#   https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/configuring/web-agent-configuration/list-of-agent-configuration-parameters
 # @param agent_config_object
-#   WebAgent.conf
+#   Determines which Agent Configuration Object that the agent should use. Default value: undef.
 # @param enable_local_config
-#   WebAgent.conf
+#   Enables or disables the LocalConfig.conf file, where most of Agent configuration settings reside. Default value: false
 # @param enable_web_agent
-#   WebAgent.conf
+#   Specifies whether an agent actively protects resources. Default value: false
 # @param locale
-#   WebAgent.conf
+#   Specifies the language in which HTML pages for login, basic password services, and error responses are displayed. Default value: en-US
 # @param server_path
-#   WebAgent.conf
+#   Identifies the web server directory to the Agent. Default value: /etc/httpd
 #
 #   ##### LocalConfig.conf parameters:
 # @param enable_log_file
-#   LocalConfig.conf
+#   Turns Error (High Level) Logging on or off. Default value: false
 # @param enable_trace_file
-#   LocalConfig.conf
+#   Specifies whether the agent writes a trace (Low Level) file. Default value: false
 # @param log_file_size
-#   LocalConfig.conf
+#   Specifies the size limit of the log file in megabytes. Default value: 0 (no rollover)
 # @param trace_file_size
-#   LocalConfig.conf
+#   Specifies (in megabytes) the maximum size of a trace file. Default value: 0 (a new log file is not created)
 #
 #   ##### WebAgentTrace.conf parameters:
 # @param trace_log_components
-#   WebAgentTrace.conf
+#   Trace log components to monitor. Default value: AgentFramework, HTTPAgent, WebAgent
 # @param trace_log_data
-#   WebAgentTrace.conf
+#   Trace message data fields. Default value: Date, Time, Pid, Tid, SrcFile, Function, TransactionID, IPAddr, IPPort, AgentName, Resource,
+#   User, Message
 class ca_sso_web_agent (
   String $installation_binary,
   String $installation_zip,

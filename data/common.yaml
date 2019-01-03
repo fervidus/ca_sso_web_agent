@@ -26,15 +26,15 @@ ca_sso_web_agent::temp_location: '/tmp/ca_sso_web_agent_install'
 
 # Parameters for WebAgent.conf template
 ca_sso_web_agent::enable_local_config: false
-ca_sso_web_agent::enable_web_agent: true
+ca_sso_web_agent::enable_web_agent: false
 ca_sso_web_agent::locale: 'en-US'
 ca_sso_web_agent::server_path: '/etc/httpd'
 #
 # Parameters for LocalConfig.conf template
-ca_sso_web_agent::enable_log_file: true
-ca_sso_web_agent::enable_trace_file: true
-ca_sso_web_agent::log_file_size: '100'
-ca_sso_web_agent::trace_file_size: '100'
+ca_sso_web_agent::enable_log_file: false
+ca_sso_web_agent::enable_trace_file: false
+ca_sso_web_agent::log_file_size: '0'
+ca_sso_web_agent::trace_file_size: '0'
 
 # Parameters for WebAgentTrace.conf template
 ca_sso_web_agent::trace_log_components: 'AgentFramework, HTTPAgent, WebAgent'
