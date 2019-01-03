@@ -3,7 +3,7 @@
 #@TODO
 #apache::service_restart: 'apachectl stop && apachectl start'
 
-ca_sso_web_agent::install_dir: '/app/ca/webagent'
+ca_sso_web_agent::install_dir: '/opt/ca/webagent'
 # The following packages are CA SSO Web Agent prerequisites.
 # https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/installing/install-agents/web-agent-for-apache/apache-based-server-preparations-for-linux
 ca_sso_web_agent::prereq_packages:
