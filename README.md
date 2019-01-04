@@ -136,7 +136,7 @@ profile::ca_sso_web_agent::policy_servers:
 profile::ca_sso_web_agent::registration_host_config_object: 'EXAMPLE_CLUSTERHOST_GLOBAL_MP'
 #profile::ca_sso_web_agent::registration_hostname: 'example_webagent01.example.com'
 profile::ca_sso_web_agent::registration_fips_mode: 'ONLY'
-profile::ca_sso_web_agent::registration_password: 'St0ngP@$$word!'
+profile::ca_sso_web_agent::registration_password: 'Str0ngP@$$word!'
 #profile::ca_sso_web_agent::registration_policy_server_ip: '192.168.30.139'
 profile::ca_sso_web_agent::registration_username: 'registrar'
 profile::ca_sso_web_agent::version: '12.52.109.2620'
