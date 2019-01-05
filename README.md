@@ -98,18 +98,18 @@ class profile::ca_sso_web_agent (
     version => $version,
     #
     # Parameters for WebAgent.conf template
-    agent_config_object => $agent_config_object,
-    enable_local_config => $enable_local_config,
-    enable_web_agent    => $enable_web_agent,
-    locale              => $locale,
-    policy_servers      => $policy_servers,
-    server_path         => $server_path,
+    agent_config_object             => $agent_config_object,
+    enable_local_config             => $enable_local_config,
+    enable_web_agent                => $enable_web_agent,
+    locale                          => $locale,
+    policy_servers                  => $policy_servers,
+    server_path                     => $server_path,
     #
     # Parameters for LocalConfig.conf template
-    enable_log_file   => $enable_log_file,
-    enable_trace_file => $enable_trace_file,
-    log_file_size     => $log_file_size,
-    trace_file_size   => $trace_file_size,
+    enable_log_file                 => $enable_log_file,
+    enable_trace_file               => $enable_trace_file,
+    log_file_size                   => $log_file_size,
+    trace_file_size                 => $trace_file_size,
   }
 
 }

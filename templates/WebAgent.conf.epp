@@ -16,7 +16,7 @@ ServerPath="<%= $ca_sso_web_agent::server_path %>"
 localconfigfile="<%= $ca_sso_web_agent::config::local_config_file %>"
 <% } -%>
 <%- else { -%>
-#localconfigfile="<%= $ca_sso_web_agent::local_config_file %>"
+#localconfigfile="<%= $ca_sso_web_agent::config::local_config_file %>"
 <% } -%>
 LoadPlugin="<%= $ca_sso_web_agent::config::load_plugin %>"
 #LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libAffiliate10Plugin.so"
@@ -28,4 +28,3 @@ LoadPlugin="<%= $ca_sso_web_agent::config::load_plugin %>"
 #LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libDisambiguatePlugin.so"
 #LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libOAuthPlugin.so"
 #LoadPlugin="<%= $ca_sso_web_agent::install_dir %>/bin/libCertSessionLinkerPlugin.so"
-#AgentIdFile="<%= $ca_sso_web_agent::agent_id_file %>"
