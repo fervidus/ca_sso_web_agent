@@ -6,6 +6,8 @@
 #   include ca_sso_web_agent::preinstall
 class ca_sso_web_agent::preinstall {
 
+  include ::ca_sso_web_agent
+
   $prereq_packages = $::ca_sso_web_agent::prereq_packages
   package { $prereq_packages:
     ensure  => present,

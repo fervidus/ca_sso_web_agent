@@ -5,6 +5,9 @@
 # @example
 #   include ca_sso_web_agent::register
 class ca_sso_web_agent::register {
+
+  include ::ca_sso_web_agent
+
   $install_dir      = $::ca_sso_web_agent::install_dir
   $cf               = $::ca_sso_web_agent::registration_fips_mode
   $host_config_file = "${install_dir}/config/SmHost.conf"

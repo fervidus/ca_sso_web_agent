@@ -2,5 +2,12 @@
 # See https://github.com/puppetlabs/puppetlabs_spec_helper#using-fixtures for details
 ---
 fixtures:
+  repositories:
+    stdlib: "https://github.com/puppetlabs/puppetlabs-stdlib.git"
   forge_modules:
-#     stdlib: "puppetlabs/stdlib"
+    apache:  "puppetlabs/apache"
+    archive: "puppet/archive"
+    concat:  "puppetlabs/concat"
+#    stdlib:  "puppetlabs/stdlib"
+  symlinks:
+    ca_sso_web_agent: "#{source_dir}"

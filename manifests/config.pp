@@ -6,6 +6,9 @@
 #   include ca_sso_web_agent::config
 class ca_sso_web_agent::config {
 
+  include ::apache
+  include ::ca_sso_web_agent
+
   $install_dir               = $::ca_sso_web_agent::install_dir
   $agent_config_object       = $::ca_sso_web_agent::agent_config_object
   $configured_policy_servers = $::facts['ca_sso_web_agent_policy_servers']
