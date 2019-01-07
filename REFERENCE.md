@@ -63,12 +63,6 @@ Prerequisites packages to install prior to installation.
 Default value: ['binutils', 'gcc', 'keyutils-libs.i686', 'libidn.i686', 'libidn.so.11', 'libstdc++.i686', 'libXext.i686',
 'libXrender.i686', 'libXtst.i686', 'ncurses-libs.i686', 'unzip']
 
-##### `properties_file`
-
-Data type: `String`
-
-The name of the properties file to use for unattended installation. Default value: ca-wa-installer.properties
-
 ##### `temp_location`
 
 Data type: `String`
