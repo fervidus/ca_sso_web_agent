@@ -14,7 +14,7 @@ class ca_sso_web_agent::install {
   $installation_zip    = $::ca_sso_web_agent::installation_zip
   $install_dir         = $::ca_sso_web_agent::install_dir
   $install_source      = $::ca_sso_web_agent::install_source
-  $properties_file     = $::ca_sso_web_agent::properties_file
+  $properties_file     = 'ca-wa-installer.properties'
   $temp_location       = $::ca_sso_web_agent::temp_location
   $version             = $::ca_sso_web_agent::version
 

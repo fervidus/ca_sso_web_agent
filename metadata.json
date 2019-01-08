@@ -1,10 +1,10 @@
 {
   "name": "fs-ca_sso_web_agent",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "author": "Chris Ewing",
-  "summary": "",
+  "summary": "Installs, configures, and registers the CA SSO Web Agent.",
   "license": "Apache-2.0",
-  "source": "",
+  "source": "https://code.fs.usda.gov/automation/ca_sso_web_agent",
   "dependencies": [
     {
       "name": "puppet/archive",

@@ -19,8 +19,6 @@
 #   Prerequisites packages to install prior to installation.
 #   Default value: ['binutils', 'gcc', 'keyutils-libs.i686', 'libidn.i686', 'libidn.so.11', 'libstdc++.i686', 'libXext.i686',
 #   'libXrender.i686', 'libXtst.i686', 'ncurses-libs.i686', 'unzip']
-# @param properties_file
-#   The name of the properties file to use for unattended installation. Default value: ca-wa-installer.properties
 # @param temp_location
 #   The path to the temporary location where the installation files are extracted. Default value: /tmp/ca_sso_web_agent_install
 # @param version
@@ -86,7 +84,6 @@ class ca_sso_web_agent (
   String $install_source,
   Array  $policy_servers,
   Array  $prereq_packages,
-  String $properties_file,
   Enum['COMPAT', 'ONLY'] $registration_fips_mode,
   String $registration_host_config_object,
   String $registration_hostname,
