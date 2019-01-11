@@ -26,6 +26,8 @@
 #   removed and replaced with the version specified through this parameter. Default value: undef.
 #   ##### Registration (smreghost) parameters:
 #   https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/administrating/register-a-trusted-host-using-the-smreghost-registration-tool
+# @param register_trusted_host
+#   Whether or not to register this host or just perform installation and configuration. Default value: false
 # @param registration_fips_mode
 #   Specifies one of the following FIPS modes. Default value: COMPAT
 #
@@ -85,6 +87,7 @@ class ca_sso_web_agent (
   Array  $policy_servers,
   Array  $prereq_packages,
   Enum['COMPAT', 'ONLY'] $registration_fips_mode,
+  Boolean $register_trusted_host,
   String $registration_host_config_object,
   String $registration_hostname,
   String $registration_password,
@@ -122,7 +125,9 @@ class ca_sso_web_agent (
       contain ca_sso_web_agent::preinstall
       contain ca_sso_web_agent::install
       # Call register class prior to config class or SmHost.conf file will be overwritten by registration.
-      contain ca_sso_web_agent::register
+      if $register_trusted_host {
+        contain ca_sso_web_agent::register
+      }
       contain ca_sso_web_agent::config
     }
     elsif $installed_version == $version {
@@ -135,7 +140,9 @@ class ca_sso_web_agent (
     contain ca_sso_web_agent::preinstall
     contain ca_sso_web_agent::install
     # Call register class prior to config class or SmHost.conf file will be overwritten by registration.
-    contain ca_sso_web_agent::register
+    if $register_trusted_host {
+      contain ca_sso_web_agent::register
+    }
     contain ca_sso_web_agent::config
   }
 

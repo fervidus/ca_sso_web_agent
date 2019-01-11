@@ -28,6 +28,7 @@ group :development do
   gem "puppet-module-win-dev-r#{minor_version}",       require: false, platforms: [:mswin, :mingw, :x64_mingw]
 end
 
+
 puppet_version = ENV['PUPPET_GEM_VERSION']
 facter_version = ENV['FACTER_GEM_VERSION']
 hiera_version = ENV['HIERA_GEM_VERSION']
@@ -68,3 +69,11 @@ extra_gemfiles.each do |gemfile|
   end
 end
 # vim: syntax=ruby
+
+gem 'beaker-docker'
+gem 'beaker-pe'
+gem 'beaker-puppet'
+gem 'beaker-rspec'
+gem 'beaker-testmode_switcher'
+gem 'beaker-puppet_install_helper'
+gem 'beaker-module_install_helper'
