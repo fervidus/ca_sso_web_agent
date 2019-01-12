@@ -20,7 +20,7 @@ ca_sso_web_agent::prereq_packages:
   # unzip is required to extract installation zip
   - 'unzip'
 
-ca_sso_web_agent::register_trusted_host: false
+ca_sso_web_agent::register_trusted_host: true
 ca_sso_web_agent::registration_fips_mode: 'COMPAT'
 ca_sso_web_agent::temp_location: '/tmp/ca_sso_web_agent_install'
 

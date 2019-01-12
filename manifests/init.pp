@@ -27,7 +27,8 @@
 #   ##### Registration (smreghost) parameters:
 #   https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/administrating/register-a-trusted-host-using-the-smreghost-registration-tool
 # @param register_trusted_host
-#   Whether or not to register this host or just perform installation and configuration. Default value: false
+#   Whether or not to register this host or just perform installation and configuration. This should only be set to false when running
+#   acceptance tests. Default value: true
 # @param registration_fips_mode
 #   Specifies one of the following FIPS modes. Default value: COMPAT
 #
