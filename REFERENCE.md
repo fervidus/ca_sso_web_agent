@@ -78,6 +78,13 @@ removed and replaced with the version specified through this parameter. Default 
 ##### Registration (smreghost) parameters:
 https://docops.ca.com/ca-single-sign-on/12-52-sp1/en/administrating/register-a-trusted-host-using-the-smreghost-registration-tool
 
+##### `register_trusted_host`
+
+Data type: `Boolean`
+
+Whether or not to register this host or just perform installation and configuration. This should only be set to false when running
+acceptance tests. Default value: true
+
 ##### `registration_fips_mode`
 
 Data type: `Enum['COMPAT', 'ONLY']`
