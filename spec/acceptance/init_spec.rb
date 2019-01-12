@@ -11,6 +11,7 @@ describe 'Declare ca_sso_web_agent class:', unless: UNSUPPORTED_PLATFORMS.includ
         install_dir                     => '/opt/ca/webagent',
         install_source                  => '/tmp/ca-wa-12.52-sp01-cr09a-linux-x86-64.zip',
         #registration_fips_mode          => $registration_fips_mode,
+        register_trusted_host           => false,
         registration_host_config_object => 'EXAMPLE_CLUSTERHOST_GLOBAL_MP',
         registration_hostname           => 'example_webagent01.example.com',
         registration_password           => 'Str0ngP@$$word!',
