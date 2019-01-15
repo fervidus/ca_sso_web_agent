@@ -155,7 +155,60 @@ In the Limitations section, list any incompatibilities, known issues, or other w
 
 ## Development
 
-In the Development section, tell other users the ground rules for contributing to your project and how they should submit their work.
+### Syntax Checking
+Using PDK:
+
+`pdk validate`
+
+Alternatively, using rake:
+```
+bundle exec rake rubocop
+bundle exec rake lint
+bundle exec rake validate
+```
+### Unit Testing
+Using PDK:
+
+`pdk test unit`
+
+Alternatively, using rake:
+
+`bundle exec rake spec`
+### Acceptance Testing
+1. Copy `ca-wa-12.52-sp01-cr09a-linux-x86-64.zip` to `spec/acceptance/nodesets/docker/`
+
+  **NOTE**: The `ca-wa-12.52-sp01-cr09a-linux-x86-64.zip` file is not included with this module. You must obtain this file and copy to the `spec/acceptance/nodesets/docker/` manually.
+
+2. Build the docker image used for testing:
+
+`docker build spec/acceptance/nodesets/docker -t mycentos:7`
+
+3. Install dependencies and run tests:
+
+```
+bundle install
+bundle exec rake beaker
+```
+
+Alternatively, use the dev node set to speed up the test writing/run cycles:
+
+```
+docker build -f spec/acceptance/nodesets/docker/Dockerfile-mycentos-dev spec/acceptance/nodesets/docker/ -t mycentos:dev
+bundle exec rake beaker:dev
+```
+
+**The dev node set uses an image with packages and modules pre-installed. This should not be used for final acceptance testing.**
+
+### Troubleshooting
+If you receive the following error, remove the `Gemfile.lock` file and try again.
+```
+pdk (FATAL):
+/opt/puppetlabs/pdk/private/ruby/2.5.1/lib/ruby/site_ruby/2.5.0/rubygems.rb:289:in `find_spec_for_exe': can't find gem bundler (>= 0.a) with executable bundle (Gem::GemNotFoundException)
+        from /opt/puppetlabs/pdk/private/ruby/2.5.1/lib/ruby/site_ruby/2.5.0/rubygems.rb:308:in `activate_bin_path'
+        from /opt/puppetlabs/pdk/private/ruby/2.5.1/bin/bundle:23:in `<main>'
+
+pdk (FATAL): Unable to resolve Gemfile dependencies.
+```
 
 ## Release Notes/Contributors/Etc. **Optional**
 
