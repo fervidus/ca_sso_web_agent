@@ -158,7 +158,9 @@ In the Limitations section, list any incompatibilities, known issues, or other w
 ### Syntax Checking
 Using PDK:
 
-`pdk validate`
+```
+pdk validate
+```
 
 Alternatively, using rake:
 ```
@@ -169,25 +171,37 @@ bundle exec rake validate
 ### Unit Testing
 Using PDK:
 
-`pdk test unit`
+```
+pdk test unit
+```
 
 Alternatively, using rake:
 
-`bundle exec rake spec`
+```
+bundle exec rake spec
+```
+
 ### Acceptance Testing
-1. Copy `ca-wa-12.52-sp01-cr09a-linux-x86-64.zip` to `spec/acceptance/nodesets/docker/`
+Copy `ca-wa-12.52-sp01-cr09a-linux-x86-64.zip` to `spec/acceptance/nodesets/docker/`
 
-  **NOTE**: The `ca-wa-12.52-sp01-cr09a-linux-x86-64.zip` file is not included with this module. You must obtain this file and copy to the `spec/acceptance/nodesets/docker/` manually.
+>**NOTE**: The `ca-wa-12.52-sp01-cr09a-linux-x86-64.zip` file is not included with this module. You must obtain this file and copy to the `spec/acceptance/nodesets/docker/` manually.
 
-2. Build the docker image used for testing:
+Build the docker image used for testing:
 
-`docker build spec/acceptance/nodesets/docker -t mycentos:7`
+```
+docker build spec/acceptance/nodesets/docker -t mycentos:7
+```
 
-3. Install dependencies and run tests:
+Install dependencies and run tests:
 
 ```
 bundle install
 bundle exec rake beaker
+```
+
+> **TIP:** Set `BEAKER_destroy=onpass` to keep the docker container running in the event of a test failure.
+```
+BEAKER_destroy=onpass bundle exec rake beaker
 ```
 
 Alternatively, use the dev node set to speed up the test writing/run cycles:
@@ -197,7 +211,7 @@ docker build -f spec/acceptance/nodesets/docker/Dockerfile-mycentos-dev spec/acc
 bundle exec rake beaker:dev
 ```
 
-**The dev node set uses an image with packages and modules pre-installed. This should not be used for final acceptance testing.**
+>**NOTE: The dev node set uses an image with packages and modules pre-installed. This should not be used for final acceptance testing.**
 
 ### Troubleshooting
 If you receive the following error, remove the `Gemfile.lock` file and try again.
