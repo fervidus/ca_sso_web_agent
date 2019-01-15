@@ -1,8 +1,8 @@
 HOSTS:
-  mycentos-7-x64:
+  mycentos-7-x64-dev:
     platform: el-7-x86_64
     hypervisor: docker
-    image: mycentos:7
+    image: mycentos:dev
     docker_preserve_image: true
     docker_cmd: '["/usr/sbin/init"]'
     # install various tools required to get the image up to usable levels

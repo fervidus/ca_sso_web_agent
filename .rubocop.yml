@@ -19,6 +19,8 @@ AllCops:
 Metrics/LineLength:
   Description: People have wide screens, use them.
   Max: 200
+  Exclude:
+  - 'spec/acceptance/init_spec.rb'
 GetText/DecorateString:
   Description: We don't want to decorate test output.
   Exclude:

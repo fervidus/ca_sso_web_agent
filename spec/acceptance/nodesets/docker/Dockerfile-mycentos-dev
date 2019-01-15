@@ -1,18 +1,16 @@
-#https://github.com/puppetlabs/beaker-rspec
-# Set BEAKER_destroy=no to keep the VMs/containers after the test run.
-#BEAKER_destroy=no BEAKER_set=mycentos-7 bundle exec rake beaker
-# Set BEAKER_destroy=onpass to keep the VMs/containers around only after a test failure.
-#BEAKER_destroy=onpass BEAKER_set=mycentos-7 bundle exec rake beaker
-
+# This image can be used to speed up the test writing/run cycles.
+# Build using the following from the root of this project:
+# docker build -f spec/acceptance/nodesets/docker/Dockerfile-mycentos-dev spec/acceptance/nodesets/docker/ -t mycentos:dev
 
 FROM centos:7
+
 # You will need to copy the ca-wa-12.52-sp01-cr09a-linux-x86-64.zip as this is not included in this repository.
 COPY ./ca-wa-12.52-sp01-cr09a-linux-x86-64.zip /tmp/
-COPY ./puppetlabs-pc1.repo /etc/yum.repos.d/puppetlabs-pc1.repo 
-#RUN yum install -y crontabs tar wget openssl sysvinit-tools iproute which initscripts
+COPY ./puppetlabs-pc1.repo /etc/yum.repos.d/puppetlabs-pc1.repo
+
 RUN yum install -y binutils gcc keyutils-libs.i686 libidn.i686 libidn.so.11 libstdc++.i686 libXext.i686 libXrender.i686 libXtst.i686 ncurses-libs.i686 unzip \
-# @TODO The following are only here to speed up the test writing/run cycles... remove later and allow .fixtures.yml to handle installing modules.
 puppet-agent httpd sudo openssh-server openssh-clients curl ntpdate
+
 RUN /opt/puppetlabs/bin/puppet module install puppet-archive -v 3.2.1 \
 && /opt/puppetlabs/bin/puppet module install puppetlabs-concat -v 5.2.0 \
 && /opt/puppetlabs/bin/puppet module install puppetlabs-stdlib -v 5.1.0 \

@@ -1,15 +1,14 @@
 HOSTS:
-  centos-7-x64:
-    roles:
-      - aio
+  mycentos-7-x64:
     platform: el-7-x86_64
     hypervisor: docker
-    image: centos:7
+    image: mycentos:7
     docker_preserve_image: true
     docker_cmd: '["/usr/sbin/init"]'
     # install various tools required to get the image up to usable levels
-    docker_image_commands:
-      - 'yum install -y crontabs tar wget openssl sysvinit-tools iproute which initscripts'
+#    docker_image_commands:
+ #     - 'yum install -y crontabs tar wget openssl sysvinit-tools iproute which initscripts'
 CONFIG:
-  trace_limit: 200
+  # trace_limit: 200
   type: foss
+  # log_level: verbose

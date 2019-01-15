@@ -22,3 +22,4 @@
 /convert_report.txt
 /update_report.txt
 .DS_Store
+spec/acceptance/nodesets/docker/ca-wa-12.52-sp01-cr09a-linux-x86-64.zip
