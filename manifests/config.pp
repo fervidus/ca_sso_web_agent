@@ -23,6 +23,7 @@ class ca_sso_web_agent::config {
   $log_file                  = "${install_dir}/log/WebAgent.log"
   $log_file_size             = $::ca_sso_web_agent::log_file_size
   $policy_servers            = $::ca_sso_web_agent::policy_servers
+  $register_trusted_host     = $::ca_sso_web_agent::register_trusted_host
   $server_path               = $::ca_sso_web_agent::server_path
   $trace_config_file         = "${install_dir}/config/WebAgentTrace.conf"
   $trace_file                = "${install_dir}/log/WebAgentTrace.log"
@@ -103,7 +104,7 @@ class ca_sso_web_agent::config {
   if $configured_policy_servers {
     $configured_policy_servers.each | String $configured_policy_server | {
       if ! ( $configured_policy_server in $policy_servers ) {
-        # Configured policy server in SmHost.conf does not match desired policy server. Need to delete... 
+        # Configured policy server in SmHost.conf does not match desired policy server. Need to delete...
         notify { "Deleting ${configured_policy_server} from SmHost.conf": }
         file_line { "SmHost.conf-${configured_policy_server}":
           ensure => absent,
@@ -113,15 +114,17 @@ class ca_sso_web_agent::config {
       }
     }
   }
-  $policy_servers.each | String $policy_server | {
-    if ! ( $policy_server in $configured_policy_servers ) {
-      # Policy server is not present in SmHost.conf. Need to add... 
-      notify { "Adding ${policy_server} to ${install_dir}/config/SmHost.conf": }
-      file_line { "SmHost.conf-${policy_server}":
-        ensure => present,
-        after  => '#Add additional bootstrap policy servers here for fault tolerance.',
-        path   => "${install_dir}/config/SmHost.conf",
-        line   => $policy_server,
+  if $register_trusted_host {
+    $policy_servers.each | String $policy_server | {
+      if ! ( $policy_server in $configured_policy_servers ) {
+        # Policy server is not present in SmHost.conf. Need to add...
+        notify { "Adding ${policy_server} to ${install_dir}/config/SmHost.conf": }
+        file_line { "SmHost.conf-${policy_server}":
+          ensure => present,
+          after  => '#Add additional bootstrap policy servers here for fault tolerance.',
+          path   => "${install_dir}/config/SmHost.conf",
+          line   => $policy_server,
+        }
       }
     }
   }
