@@ -25,18 +25,6 @@ include ca_sso_web_agent
 
 The following parameters are available in the `ca_sso_web_agent` class.
 
-##### `installation_binary`
-
-Data type: `String`
-
-The name of the binary the installer uses to install the web agent. Default value: undef.
-
-##### `installation_zip`
-
-Data type: `String`
-
-The name of the zip file containing the installation binary. Default value: undef.
-
 ##### `install_dir`
 
 Data type: `String`
