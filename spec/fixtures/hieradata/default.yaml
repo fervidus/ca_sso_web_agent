@@ -2,8 +2,6 @@
 ca_sso_web_agent::agent_config_object: 'my_proxy_conf'
 ca_sso_web_agent::install_dir: '/opt/ca/webagent'
 
-ca_sso_web_agent::installation_binary: 'ca-wa-12.52-sp01-cr09-linux-x86-64.bin'
-ca_sso_web_agent::installation_zip: 'ca-wa-12.52-sp01-cr09a-linux-x86-64.zip'
 ca_sso_web_agent::install_source: 'https://artifactory.example.com/artifactory/application-release-local/ca-wa-12.52-sp01-cr09a-linux-x86-64.zip'
 ca_sso_web_agent::policy_servers:
   - 'policyserver="192.168.20.11,44441,44442,44443"'
