@@ -40,6 +40,7 @@ class ca_sso_web_agent::install {
     path    => ['/bin', '/usr/bin',],
     user    => 'root',
     before  => Exec['Install CA SSO Web Agent'],
+    require => Archive["${temp_location}/${installation_zip}"],
   }
 
   exec {'Install CA SSO Web Agent':
