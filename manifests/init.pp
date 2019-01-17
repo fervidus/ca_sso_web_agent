@@ -5,10 +5,6 @@
 # @example
 #   include ca_sso_web_agent
 #
-# @param installation_binary
-#   The name of the binary the installer uses to install the web agent. Default value: undef.
-# @param installation_zip
-#   The name of the zip file containing the installation binary. Default value: undef.
 # @param install_dir
 #   The path to install the web agent. Default value: /opt/ca/webagent
 # @param install_source
@@ -81,8 +77,6 @@
 #   Trace message data fields. Default value: Date, Time, Pid, Tid, SrcFile, Function, TransactionID, IPAddr, IPPort, AgentName, Resource,
 #   User, Message
 class ca_sso_web_agent (
-  String $installation_binary,
-  String $installation_zip,
   String $install_dir,
   String $install_source,
   Array  $policy_servers,
