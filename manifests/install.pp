@@ -10,13 +10,12 @@ class ca_sso_web_agent::install {
   # archive module is used to download packages
   include ::archive
 
-  $installation_binary = $::ca_sso_web_agent::installation_binary
-  $installation_zip    = $::ca_sso_web_agent::installation_zip
-  $install_dir         = $::ca_sso_web_agent::install_dir
-  $install_source      = $::ca_sso_web_agent::install_source
-  $properties_file     = 'ca-wa-installer.properties'
-  $temp_location       = $::ca_sso_web_agent::temp_location
-  $version             = $::ca_sso_web_agent::version
+  $install_dir      = $::ca_sso_web_agent::install_dir
+  $install_source   = $::ca_sso_web_agent::install_source
+  $installation_zip = basename($install_source)
+  $properties_file  = 'ca-wa-installer.properties'
+  $temp_location    = $::ca_sso_web_agent::temp_location
+  $version          = $::ca_sso_web_agent::version
 
   file { $temp_location:
     ensure => directory,
@@ -36,12 +35,21 @@ class ca_sso_web_agent::install {
     cleanup      => true,
   }
 
+  exec {'Rename installation binary':
+    command => "mv ${temp_location}/*.bin ${temp_location}/install.bin",
+    path    => ['/bin', '/usr/bin',],
+    user    => 'root',
+    before  => Exec['Install CA SSO Web Agent'],
+  }
+
   exec {'Install CA SSO Web Agent':
-    command => "${installation_binary} -f ${properties_file} -i silent",
+    command => "install.bin -f ${properties_file} -i silent",
     path    => $temp_location,
     user    => root,
+    before  => Exec['Cleanup installation files'],
   }
-  exec {'Remove temp install files':
+
+  exec {'Cleanup installation files':
     command => "rm -rf ${temp_location}",
     path    => ['/bin', '/usr/bin',],
     user    => 'root',
