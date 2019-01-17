@@ -2,8 +2,6 @@ require 'spec_helper_acceptance'
 require 'beaker/testmode_switcher/dsl'
 
 agent_config_object             = 'my_proxy_conf'
-installation_binary             = 'ca-wa-12.52-sp01-cr09-linux-x86-64.bin'
-installation_zip                = 'ca-wa-12.52-sp01-cr09a-linux-x86-64.zip'
 install_dir                     = '/opt/ca/webagent'
 install_source                  = '/tmp/ca-wa-12.52-sp01-cr09a-linux-x86-64.zip'
 policy_servers                  = ['policyserver="192.168.20.11,44441,44442,44443"', 'policyserver="192.168.30.139,44441,44442,44443"', 'policyserver="192.168.40.12,44441,44442,44443"', 'policyserver="192.168.50.140,44441,44442,44443"']
@@ -20,8 +18,6 @@ describe 'Declare ca_sso_web_agent class:', unless: UNSUPPORTED_PLATFORMS.includ
     pp = <<-MANIFEST
       class { 'ca_sso_web_agent':
         agent_config_object             => '#{agent_config_object}',
-        installation_binary             => '#{installation_binary}',
-        installation_zip                => '#{installation_zip}',
         install_dir                     => '#{install_dir}',
         install_source                  => '#{install_source}',
         policy_servers                  => #{policy_servers},
@@ -107,8 +103,6 @@ describe 'Declare ca_sso_web_agent class:', unless: UNSUPPORTED_PLATFORMS.includ
         enable_log_file                 => true,
         enable_trace_file               => true,
         enable_web_agent                => true,
-        installation_binary             => '#{installation_binary}',
-        installation_zip                => '#{installation_zip}',
         install_dir                     => '#{install_dir}',
         install_source                  => '#{install_source}',
         policy_servers                  => #{policy_servers},

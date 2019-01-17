@@ -76,18 +76,8 @@ class profile::ca_sso_web_agent (
   Optional[String] $trace_file_size      = undef,
 ) {
 
-  case $version {
-    '12.52.109.2620': {
-      $installation_binary = 'ca-wa-12.52-sp01-cr09-linux-x86-64.bin'
-      $installation_zip    = 'ca-wa-12.52-sp01-cr09a-linux-x86-64.zip'
-    }
-    default: { fail("Unsupported CA SSO Web Agent version ${version}") }
-  }
-
   class { '::ca_sso_web_agent':
     # General params
-    installation_binary             => $installation_binary,
-    installation_zip                => $installation_zip,
     install_dir                     => $install_dir,
     install_source                  => $install_source,
     registration_fips_mode          => $registration_fips_mode,
